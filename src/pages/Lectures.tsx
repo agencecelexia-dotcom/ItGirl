@@ -26,7 +26,7 @@ export function Lectures() {
   };
 
   const field =
-    "mt-1 w-full border-b border-ligne bg-transparent py-2 text-[15px] placeholder:text-encre/50 focus:border-terre focus:outline-none";
+    "mt-1 w-full border-b border-ligne bg-transparent py-2 text-body placeholder:text-encre/50 focus:border-terre focus:outline-none";
 
   const opened = books.find((book) => book.id === openedId);
   if (opened) {
@@ -39,10 +39,10 @@ export function Lectures() {
 
   return (
     <div className="mx-auto max-w-4xl px-5 py-5 sm:px-8 sm:py-8">
-      <h1 className="font-display uppercase tracking-[0.03em] text-vin text-2xl sm:text-3xl">Lectures</h1>
+      <h1 className="font-display uppercase text-vin text-h1">Lectures</h1>
 
       {books.length === 0 && (
-        <p className="mt-2 text-sm text-encre/70">
+        <p className="mt-2 text-small text-encre/70">
           L'étagère est vide. Ajoute un livre, même un que tu n'as pas encore ouvert.
         </p>
       )}
@@ -54,7 +54,7 @@ export function Lectures() {
 
           return (
             <section key={status}>
-              <h2 className="font-display uppercase tracking-[0.03em] text-sm text-encre/70">
+              <h2 className="font-display uppercase text-label text-encre/70">
                 {status}
               </h2>
               <div className="mt-3 grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 lg:grid-cols-4">
@@ -70,7 +70,7 @@ export function Lectures() {
       {open ? (
         <form onSubmit={submit} className="mt-8 space-y-3 rounded-card border border-ligne p-5">
           <label className="block">
-            <span className="text-xs text-encre/70">Titre</span>
+            <span className="text-micro text-encre/70">Titre</span>
             <input
               value={title}
               onChange={(e) => setTitle(e.target.value)}
@@ -80,7 +80,7 @@ export function Lectures() {
             />
           </label>
           <label className="block">
-            <span className="text-xs text-encre/70">Auteur</span>
+            <span className="text-micro text-encre/70">Auteur</span>
             <input
               value={author}
               onChange={(e) => setAuthor(e.target.value)}
@@ -90,7 +90,7 @@ export function Lectures() {
           </label>
 
           <fieldset>
-            <legend className="text-xs text-encre/70">Tu comptes en</legend>
+            <legend className="text-micro text-encre/70">Tu comptes en</legend>
             <div className="mt-2 flex gap-2">
               {(["page", "chapitre"] as const).map((option) => (
                 <button
@@ -98,7 +98,7 @@ export function Lectures() {
                   type="button"
                   onClick={() => setUnit(option)}
                   aria-pressed={unit === option}
-                  className={`min-h-11 rounded-pill border px-4 text-sm transition-colors ${
+                  className={`min-h-11 rounded-pill border px-4 text-small transition-colors ${
                     unit === option ? "border-terre text-encre" : "border-ligne text-encre/70"
                   }`}
                 >
@@ -109,7 +109,7 @@ export function Lectures() {
           </fieldset>
 
           <label className="block">
-            <span className="text-xs text-encre/70">Combien en tout, si tu le sais</span>
+            <span className="text-micro text-encre/70">Combien en tout, si tu le sais</span>
             <input
               type="number"
               min={0}
@@ -123,14 +123,14 @@ export function Lectures() {
             <button
               type="submit"
               disabled={!title.trim()}
-              className="min-h-11 rounded-pill border border-terre px-4 text-sm text-encre transition-opacity disabled:opacity-40"
+              className="min-h-11 rounded-pill border border-terre px-4 text-small text-encre transition-opacity disabled:opacity-40"
             >
               Ajouter
             </button>
             <button
               type="button"
               onClick={() => setOpen(false)}
-              className="min-h-11 rounded-pill border border-ligne px-4 text-sm text-encre/70"
+              className="min-h-11 rounded-pill border border-ligne px-4 text-small text-encre/70"
             >
               Annuler
             </button>
@@ -140,7 +140,7 @@ export function Lectures() {
         <button
           type="button"
           onClick={() => setOpen(true)}
-          className="mt-8 min-h-11 w-full rounded-card border border-ligne px-4 text-sm text-encre/70 transition-colors hover:border-terre"
+          className="mt-8 min-h-11 w-full rounded-card border border-ligne px-4 text-small text-encre/70 transition-colors hover:border-terre"
         >
           Ajouter un livre
         </button>

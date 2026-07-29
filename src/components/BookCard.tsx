@@ -18,13 +18,13 @@ export function BookCard({ book, onOpen }: { book: Book; onOpen: () => void }) {
         {/* La couverture typographique porte déjà le titre : on ne le répète que sur une vraie image. */}
         {book.cover_url && (
           <>
-            <span className="mt-2 block text-sm leading-snug">{book.title}</span>
+            <span className="mt-2 block text-small leading-snug">{book.title}</span>
             {book.author && (
-              <span className="block text-xs text-encre/70">{book.author}</span>
+              <span className="block text-micro text-encre/70">{book.author}</span>
             )}
           </>
         )}
-        <span className="mt-1 block text-xs text-encre/70 first-letter:uppercase">
+        <span className="mt-1 block text-micro text-encre/70 first-letter:uppercase">
           {progressLabel(book)}
         </span>
       </button>

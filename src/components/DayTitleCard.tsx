@@ -30,19 +30,22 @@ export function DayTitleCard({ date, photoUrl, moodWord = "douce" }: DayTitleCar
         />
       )}
 
+      {/*
+        Le voile est porté par le bloc de texte, pas par la carte : il épouse donc
+        sa hauteur, que le titre tienne sur une ligne ou déborde sur deux, sans
+        jamais éteindre le fond plus haut que nécessaire.
+      */}
       <div
-        className="absolute inset-0"
+        className="absolute inset-x-0 bottom-0 p-5 pt-20 sm:p-8 sm:pt-24"
         style={{
-          // Resserré sur le bas : juste ce qu'il faut pour le titre, sans éteindre le fond.
-          background: "linear-gradient(to top, rgba(59,42,32,0.52), transparent 38%)",
+          background:
+            "linear-gradient(to top, rgba(59,42,32,0.66), rgba(59,42,32,0.5) 45%, transparent)",
         }}
-      />
-
-      <div className="absolute inset-x-0 bottom-0 p-5 sm:p-8">
-        <p className="relative inline-block font-display uppercase text-beurre tracking-[0.04em] text-[28px] leading-[1.05] sm:text-[40px] lg:text-[56px]">
+      >
+        <p className="font-display uppercase text-beurre text-display text-balance">
           {formatDayTitle(date)}
         </p>
-        <p className="font-script text-rose text-3xl lg:text-5xl -rotate-3 -mt-2 ml-4 sm:ml-8">
+        <p className="font-script text-rose text-script-lg -rotate-3 -mt-1 ml-4 sm:ml-8">
           {moodWord}
         </p>
       </div>

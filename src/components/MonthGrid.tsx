@@ -32,7 +32,7 @@ export function MonthGrid() {
 
   return (
     <section>
-      <h3 className="font-display uppercase tracking-[0.03em] text-sm text-encre/70">
+      <h3 className="font-display uppercase text-label text-encre/70">
         Le mois jour par jour
       </h3>
       <svg

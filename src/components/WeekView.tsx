@@ -33,9 +33,9 @@ export function WeekView({ anchor, onPickDay }: WeekViewProps) {
               onClick={() => onPickDay(key)}
               className="flex w-full items-baseline gap-2 text-left"
             >
-              <span className="text-xs text-encre/70">{formatWeekdayShort(day)}</span>
+              <span className="text-micro text-encre/70">{formatWeekdayShort(day)}</span>
               <span
-                className={`flex h-7 min-w-7 items-center justify-center rounded-pill px-1.5 text-sm ${
+                className={`flex h-7 min-w-7 items-center justify-center rounded-pill px-1.5 text-small ${
                   isToday ? "bg-rose text-encre" : "text-encre"
                 }`}
               >
@@ -50,7 +50,7 @@ export function WeekView({ anchor, onPickDay }: WeekViewProps) {
                 ))}
               </ul>
             ) : (
-              <p className="mt-2 text-xs text-encre/50">—</p>
+              <p className="mt-2 text-micro text-encre/50">—</p>
             )}
           </section>
         );

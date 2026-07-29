@@ -42,14 +42,14 @@ export function BookDetail({ book, onBack }: { book: Book; onBack: () => void })
   };
 
   const field =
-    "mt-1 w-full border-b border-ligne bg-transparent py-2 text-[15px] placeholder:text-encre/50 focus:border-terre focus:outline-none";
+    "mt-1 w-full border-b border-ligne bg-transparent py-2 text-body placeholder:text-encre/50 focus:border-terre focus:outline-none";
 
   return (
     <div>
       <button
         type="button"
         onClick={onBack}
-        className="min-h-11 text-sm text-encre/70 underline underline-offset-4"
+        className="min-h-11 text-small text-encre/70 underline underline-offset-4"
       >
         ← Retour à l'étagère
       </button>
@@ -75,11 +75,11 @@ export function BookDetail({ book, onBack }: { book: Book; onBack: () => void })
         />
 
         <div className="min-w-0 flex-1">
-          <h1 className="font-display uppercase tracking-[0.03em] text-xl sm:text-2xl">
+          <h1 className="font-display uppercase text-h1">
             {book.title}
           </h1>
-          {book.author && <p className="mt-1 text-sm text-encre/70">{book.author}</p>}
-          <p className="mt-3 text-sm text-encre/70 first-letter:uppercase">
+          {book.author && <p className="mt-1 text-small text-encre/70">{book.author}</p>}
+          <p className="mt-3 text-small text-encre/70 first-letter:uppercase">
             {progressLabel(book)}
           </p>
 
@@ -92,12 +92,12 @@ export function BookDetail({ book, onBack }: { book: Book; onBack: () => void })
             </div>
           )}
 
-          {error && <p className="mt-2 text-sm text-encre/70">{error}</p>}
+          {error && <p className="mt-2 text-small text-encre/70">{error}</p>}
 
           <button
             type="button"
             onClick={() => setEditing((e) => !e)}
-            className="mt-3 min-h-11 text-xs text-encre/70 underline underline-offset-4"
+            className="mt-3 min-h-11 text-micro text-encre/70 underline underline-offset-4"
           >
             {editing ? "Terminé" : "Modifier ce livre"}
           </button>
@@ -107,7 +107,7 @@ export function BookDetail({ book, onBack }: { book: Book; onBack: () => void })
       {editing && (
         <div className="mt-4 space-y-3 rounded-card border border-ligne p-5">
           <label className="block">
-            <span className="text-xs text-encre/70">Titre</span>
+            <span className="text-micro text-encre/70">Titre</span>
             <input
               value={book.title}
               onChange={(e) => updateBook(book.id, { title: e.target.value })}
@@ -115,7 +115,7 @@ export function BookDetail({ book, onBack }: { book: Book; onBack: () => void })
             />
           </label>
           <label className="block">
-            <span className="text-xs text-encre/70">Auteur</span>
+            <span className="text-micro text-encre/70">Auteur</span>
             <input
               value={book.author ?? ""}
               onChange={(e) => updateBook(book.id, { author: e.target.value || undefined })}
@@ -123,7 +123,7 @@ export function BookDetail({ book, onBack }: { book: Book; onBack: () => void })
             />
           </label>
           <label className="block">
-            <span className="text-xs text-encre/70">
+            <span className="text-micro text-encre/70">
               Combien de {book.unit}s en tout, si tu le sais
             </span>
             <input
@@ -135,7 +135,7 @@ export function BookDetail({ book, onBack }: { book: Book; onBack: () => void })
             />
           </label>
           <label className="block">
-            <span className="text-xs text-encre/70">Couverture par lien</span>
+            <span className="text-micro text-encre/70">Couverture par lien</span>
             <input
               value={link}
               onChange={(e) => setLink(e.target.value)}
@@ -153,7 +153,7 @@ export function BookDetail({ book, onBack }: { book: Book; onBack: () => void })
               deleteBook(book.id);
               onBack();
             }}
-            className="min-h-11 rounded-pill border border-ligne px-4 text-sm text-encre/70"
+            className="min-h-11 rounded-pill border border-ligne px-4 text-small text-encre/70"
           >
             Retirer de l'étagère
           </button>
@@ -161,10 +161,10 @@ export function BookDetail({ book, onBack }: { book: Book; onBack: () => void })
       )}
 
       <form onSubmit={submit} className="mt-6 rounded-card border border-ligne p-5">
-        <h2 className="font-display uppercase tracking-[0.03em] text-lg">Je viens de lire</h2>
+        <h2 className="font-display uppercase text-h2">Je viens de lire</h2>
 
         <label className="mt-3 block">
-          <span className="text-xs text-encre/70">
+          <span className="text-micro text-encre/70">
             Je me suis arrêtée {book.unit === "page" ? "à la page" : "au chapitre"}
           </span>
           <input
@@ -178,20 +178,20 @@ export function BookDetail({ book, onBack }: { book: Book; onBack: () => void })
         </label>
 
         <label className="mt-3 block">
-          <span className="text-xs text-encre/70">Ce que tu en retiens</span>
+          <span className="text-micro text-encre/70">Ce que tu en retiens</span>
           <textarea
             value={note}
             onChange={(e) => setNote(e.target.value)}
             rows={3}
             placeholder="Deux mots sur ce passage, si tu veux."
-            className="mt-1 w-full resize-none rounded-card border border-ligne bg-transparent p-3 text-[15px] leading-relaxed placeholder:text-encre/50 focus:border-terre focus:outline-none"
+            className="mt-1 w-full resize-none rounded-card border border-ligne bg-transparent p-3 text-body leading-relaxed placeholder:text-encre/50 focus:border-terre focus:outline-none"
           />
         </label>
 
         <button
           type="submit"
           disabled={!Number(position)}
-          className="mt-4 min-h-11 rounded-pill border border-terre px-4 text-sm text-encre transition-opacity disabled:opacity-40"
+          className="mt-4 min-h-11 rounded-pill border border-terre px-4 text-small text-encre transition-opacity disabled:opacity-40"
         >
           Enregistrer
         </button>
@@ -199,16 +199,16 @@ export function BookDetail({ book, onBack }: { book: Book; onBack: () => void })
 
       {book.status === "lu" && (
         <section className="mt-4 rounded-card bg-menthe/25 p-5">
-          <p className="font-script text-2xl text-encre">Tu l'as fini.</p>
+          <p className="font-script text-script text-encre">Tu l'as fini.</p>
           {book.note ? (
-            <p className="mt-2 text-sm italic">{book.note}</p>
+            <p className="mt-2 text-small italic">{book.note}</p>
           ) : (
             <input
               value=""
               onChange={(e) => updateBook(book.id, { note: e.target.value })}
               placeholder="Une phrase sur ce livre, si tu veux."
               aria-label="Note de fin de lecture"
-              className="mt-2 w-full border-b border-encre/20 bg-transparent py-2 text-sm italic placeholder:not-italic placeholder:text-encre/70 focus:border-encre/40 focus:outline-none"
+              className="mt-2 w-full border-b border-encre/20 bg-transparent py-2 text-small italic placeholder:not-italic placeholder:text-encre/70 focus:border-encre/40 focus:outline-none"
             />
           )}
         </section>
@@ -216,14 +216,14 @@ export function BookDetail({ book, onBack }: { book: Book; onBack: () => void })
 
       {sessions.length > 0 && (
         <section className="mt-6">
-          <h2 className="font-display uppercase tracking-[0.03em] text-sm text-encre/70">
+          <h2 className="font-display uppercase text-label text-encre/70">
             Journal de lecture
           </h2>
           <ul className="mt-3 space-y-4">
             {sessions.map((session) => (
               <li key={session.id} className="group border-l border-ligne pl-4">
                 <div className="flex items-baseline justify-between gap-2">
-                  <p className="text-xs text-encre/70 first-letter:uppercase">
+                  <p className="text-micro text-encre/70 first-letter:uppercase">
                     {formatDayLong(new Date(`${session.date}T12:00:00`))} · {book.unit}{" "}
                     {session.position}
                   </p>
@@ -231,12 +231,12 @@ export function BookDetail({ book, onBack }: { book: Book; onBack: () => void })
                     type="button"
                     onClick={() => deleteSession(session.id)}
                     aria-label="Supprimer cette lecture"
-                    className="shrink-0 text-xs text-encre/70 opacity-0 transition-opacity focus-visible:opacity-100 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:none)]:opacity-100"
+                    className="shrink-0 text-micro text-encre/70 opacity-0 transition-opacity focus-visible:opacity-100 [@media(hover:hover)]:group-hover:opacity-100 [@media(hover:none)]:opacity-100"
                   >
                     ✕
                   </button>
                 </div>
-                {session.note && <p className="mt-1 text-sm italic leading-relaxed">{session.note}</p>}
+                {session.note && <p className="mt-1 text-small italic leading-relaxed">{session.note}</p>}
               </li>
             ))}
           </ul>

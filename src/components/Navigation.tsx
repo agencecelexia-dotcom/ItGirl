@@ -33,7 +33,7 @@ export function Navigation({ active, onChange }: NavigationProps) {
           type="button"
           onClick={() => onChange(section.id)}
           aria-current={active === section.id ? "page" : undefined}
-          className={`rounded-pill px-1 py-1.5 text-center text-[9.5px] leading-tight font-sans transition-colors lg:w-full lg:px-2 lg:text-xs ${
+          className={`rounded-pill px-1 py-1.5 text-center text-micro leading-tight font-sans transition-colors lg:w-full lg:px-2 lg:text-micro ${
             active === section.id ? "text-encre font-medium" : "text-encre/70"
           }`}
         >

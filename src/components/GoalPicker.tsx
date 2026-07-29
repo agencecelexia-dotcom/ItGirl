@@ -20,7 +20,7 @@ export function GoalPicker({ value, onChange, placeholder = "objectif" }: GoalPi
         type="button"
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
-        className={`rounded-pill border px-2.5 py-1 text-xs transition-colors ${
+        className={`rounded-pill border px-2.5 py-1 text-micro transition-colors ${
           selected ? "text-encre" : "border-ligne text-encre/70 hover:border-terre"
         }`}
         style={
@@ -51,7 +51,7 @@ export function GoalPicker({ value, onChange, placeholder = "objectif" }: GoalPi
                   onChange(goal.id);
                   setOpen(false);
                 }}
-                className="rounded-pill px-3 py-1.5 text-left text-xs text-encre hover:bg-ligne/60"
+                className="rounded-pill px-3 py-1.5 text-left text-micro text-encre hover:bg-ligne/60"
               >
                 {goal.name}
               </button>
@@ -63,7 +63,7 @@ export function GoalPicker({ value, onChange, placeholder = "objectif" }: GoalPi
                   onChange(undefined);
                   setOpen(false);
                 }}
-                className="rounded-pill px-3 py-1.5 text-left text-xs text-encre/70 hover:bg-ligne/60"
+                className="rounded-pill px-3 py-1.5 text-left text-micro text-encre/70 hover:bg-ligne/60"
               >
                 Aucun
               </button>

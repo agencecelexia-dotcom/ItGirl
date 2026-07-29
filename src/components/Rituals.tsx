@@ -20,11 +20,11 @@ export function Rituals() {
   return (
     <section className="rounded-card border border-ligne p-5">
       <div className="flex flex-wrap items-baseline justify-between gap-3">
-        <h2 className="font-display uppercase tracking-[0.03em] text-lg">Rituels</h2>
+        <h2 className="font-display uppercase text-h2">Rituels</h2>
         <button
           type="button"
           onClick={() => setEditing((e) => !e)}
-          className="rounded-pill border border-ligne px-3 py-1.5 text-xs text-encre/70 transition-colors hover:border-terre"
+          className="rounded-pill border border-ligne px-3 py-1.5 text-micro text-encre/70 transition-colors hover:border-terre"
         >
           {editing ? "Terminé" : "Modifier"}
         </button>
@@ -42,7 +42,7 @@ export function Rituals() {
                   type="button"
                   onClick={() => toggleHabit(habit.id, date)}
                   aria-pressed={done}
-                  className={`min-h-11 rounded-pill border px-4 py-2 text-sm transition-colors ${
+                  className={`min-h-11 rounded-pill border px-4 py-2 text-small transition-colors ${
                     done ? "text-encre" : "border-ligne text-encre/70"
                   }`}
                   style={
@@ -76,7 +76,7 @@ export function Rituals() {
           })}
         </ul>
       ) : (
-        <p className="mt-3 text-sm text-encre/70">
+        <p className="mt-3 text-small text-encre/70">
           Aucun rituel pour l'instant. Ajoute ce qui te fait du bien.
         </p>
       )}
@@ -88,12 +88,12 @@ export function Rituals() {
             onChange={(e) => setLabel(e.target.value)}
             placeholder="Nouveau rituel"
             aria-label="Nouveau rituel"
-            className="min-w-0 flex-1 bg-transparent py-2 text-[15px] placeholder:text-encre/50 focus:outline-none"
+            className="min-w-0 flex-1 bg-transparent py-2 text-body placeholder:text-encre/50 focus:outline-none"
           />
           <button
             type="submit"
             disabled={!label.trim()}
-            className="rounded-pill border border-terre px-4 py-2 text-xs text-encre transition-opacity disabled:opacity-40"
+            className="rounded-pill border border-terre px-4 py-2 text-micro text-encre transition-opacity disabled:opacity-40"
           >
             Ajouter
           </button>

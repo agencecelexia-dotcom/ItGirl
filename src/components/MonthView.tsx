@@ -28,7 +28,7 @@ export function MonthView({ anchor, onPickDay }: MonthViewProps) {
     <div className="rounded-card border border-ligne p-3 sm:p-5">
       <div className="grid grid-cols-7 gap-1">
         {headers.map((day) => (
-          <div key={day.getDay()} className="pb-1 text-center text-[11px] text-encre/70">
+          <div key={day.getDay()} className="pb-1 text-center text-micro text-encre/70">
             {formatWeekdayShort(day)}
           </div>
         ))}
@@ -54,7 +54,7 @@ export function MonthView({ anchor, onPickDay }: MonthViewProps) {
               }`}
             >
               <span
-                className={`flex h-6 min-w-6 items-center justify-center rounded-pill px-1 text-xs ${
+                className={`flex h-6 min-w-6 items-center justify-center rounded-pill px-1 text-micro ${
                   isToday ? "bg-rose text-encre" : "text-encre"
                 }`}
               >
@@ -87,7 +87,7 @@ export function MonthView({ anchor, onPickDay }: MonthViewProps) {
         })}
       </div>
 
-      <p className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-ligne pt-3 text-xs text-encre/70">
+      <p className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-ligne pt-3 text-micro text-encre/70">
         <span className="flex items-center gap-1.5">
           <span className="h-1.5 w-1.5 rounded-pill bg-terre" aria-hidden="true" />
           un rendez-vous

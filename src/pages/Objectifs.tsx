@@ -22,8 +22,8 @@ export function Objectifs() {
 
   return (
     <div className="mx-auto max-w-2xl px-5 py-5 sm:px-8 sm:py-8">
-      <h1 className="font-display uppercase tracking-[0.03em] text-vin text-2xl sm:text-3xl">Objectifs</h1>
-      <p className="mt-1 text-sm text-encre/70">
+      <h1 className="font-display uppercase text-vin text-h1">Objectifs</h1>
+      <p className="mt-1 text-small text-encre/70">
         Des planchers, jamais des plafonds. Dépasser est un bonus.
       </p>
 
@@ -36,26 +36,26 @@ export function Objectifs() {
       {open ? (
         <form onSubmit={submit} className="mt-4 space-y-3 rounded-card border border-ligne p-5">
           <label className="block">
-            <span className="text-xs text-encre/70">Nom</span>
+            <span className="text-micro text-encre/70">Nom</span>
             <input
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Cours de danse"
               autoFocus
-              className="mt-1 w-full border-b border-ligne bg-transparent py-2 text-[15px] placeholder:text-encre/50 focus:border-terre focus:outline-none"
+              className="mt-1 w-full border-b border-ligne bg-transparent py-2 text-body placeholder:text-encre/50 focus:border-terre focus:outline-none"
             />
           </label>
           <label className="block">
-            <span className="text-xs text-encre/70">Une fois, ça s'appelle</span>
+            <span className="text-micro text-encre/70">Une fois, ça s'appelle</span>
             <input
               value={unit}
               onChange={(e) => setUnit(e.target.value)}
               placeholder="séance"
-              className="mt-1 w-full border-b border-ligne bg-transparent py-2 text-[15px] placeholder:text-encre/50 focus:border-terre focus:outline-none"
+              className="mt-1 w-full border-b border-ligne bg-transparent py-2 text-body placeholder:text-encre/50 focus:border-terre focus:outline-none"
             />
           </label>
           <label className="block">
-            <span className="text-xs text-encre/70">
+            <span className="text-micro text-encre/70">
               Combien par semaine — laisse à zéro pour un objectif libre
             </span>
             <input
@@ -64,21 +64,21 @@ export function Objectifs() {
               max={7}
               value={target}
               onChange={(e) => setTarget(Math.max(0, Number(e.target.value)))}
-              className="mt-1 w-full border-b border-ligne bg-transparent py-2 text-[15px] focus:border-terre focus:outline-none"
+              className="mt-1 w-full border-b border-ligne bg-transparent py-2 text-body focus:border-terre focus:outline-none"
             />
           </label>
           <div className="flex items-center gap-2">
             <button
               type="submit"
               disabled={!name.trim()}
-              className="min-h-11 rounded-pill border border-terre px-4 text-sm text-encre transition-opacity disabled:opacity-40"
+              className="min-h-11 rounded-pill border border-terre px-4 text-small text-encre transition-opacity disabled:opacity-40"
             >
               Créer
             </button>
             <button
               type="button"
               onClick={() => setOpen(false)}
-              className="min-h-11 rounded-pill border border-ligne px-4 text-sm text-encre/70"
+              className="min-h-11 rounded-pill border border-ligne px-4 text-small text-encre/70"
             >
               Annuler
             </button>
@@ -88,7 +88,7 @@ export function Objectifs() {
         <button
           type="button"
           onClick={() => setOpen(true)}
-          className="mt-4 min-h-11 w-full rounded-card border border-ligne px-4 text-sm text-encre/70 transition-colors hover:border-terre"
+          className="mt-4 min-h-11 w-full rounded-card border border-ligne px-4 text-small text-encre/70 transition-colors hover:border-terre"
         >
           Ajouter un objectif
         </button>

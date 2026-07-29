@@ -57,17 +57,17 @@ export function GoalCard({ goal }: { goal: Goal }) {
       style={{ borderColor: tint(colorToken, 55), backgroundColor: tint(colorToken, 7) }}
     >
       <div className="flex flex-wrap items-baseline justify-between gap-3">
-        <h3 className="font-display uppercase tracking-[0.03em] text-lg">{goal.name}</h3>
+        <h3 className="font-display uppercase text-h2">{goal.name}</h3>
         <button
           type="button"
           onClick={() => setEditing((e) => !e)}
-          className="rounded-pill border border-ligne px-3 py-1.5 text-xs text-encre/70 transition-colors hover:border-terre"
+          className="rounded-pill border border-ligne px-3 py-1.5 text-micro text-encre/70 transition-colors hover:border-terre"
         >
           {editing ? "Terminé" : "Modifier"}
         </button>
       </div>
 
-      {goal.note && <p className="mt-1 text-sm text-encre/70">{goal.note}</p>}
+      {goal.note && <p className="mt-1 text-small text-encre/70">{goal.note}</p>}
 
       <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-col gap-2">
@@ -78,7 +78,7 @@ export function GoalCard({ goal }: { goal: Goal }) {
             popped={popped}
             waving={justReached}
           />
-          <p className="text-sm text-encre/70">{progressLabel(count, goal.target)}</p>
+          <p className="text-small text-encre/70">{progressLabel(count, goal.target)}</p>
           {goal.target > 0 && count > goal.target && (
             <span className="sr-only">
               Une {goal.unit} en plus, juste pour le plaisir.
@@ -99,7 +99,7 @@ export function GoalCard({ goal }: { goal: Goal }) {
           <button
             type="button"
             onClick={() => addGoalLog(goal.id, today)}
-            className="min-h-11 rounded-pill border border-terre px-4 text-sm text-encre"
+            className="min-h-11 rounded-pill border border-terre px-4 text-small text-encre"
           >
             C'est fait
           </button>
@@ -111,7 +111,7 @@ export function GoalCard({ goal }: { goal: Goal }) {
         // du script et la menthe, l'encre rétablit le contraste exigé en AA.
         <p
           key={justReached ? "celebrating" : "steady"}
-          className={`mt-4 rounded-card bg-menthe/25 px-4 py-3 font-script text-2xl text-encre ${
+          className={`mt-4 rounded-card bg-menthe/25 px-4 py-3 font-script text-script text-encre ${
             justReached ? "celebration" : ""
           }`}
         >
@@ -122,15 +122,15 @@ export function GoalCard({ goal }: { goal: Goal }) {
       {editing && (
         <div className="mt-4 space-y-3 border-t border-ligne pt-4">
           <label className="block">
-            <span className="text-xs text-encre/70">Nom</span>
+            <span className="text-micro text-encre/70">Nom</span>
             <input
               value={goal.name}
               onChange={(e) => updateGoal(goal.id, { name: e.target.value })}
-              className="mt-1 w-full border-b border-ligne bg-transparent py-2 text-[15px] focus:border-terre focus:outline-none"
+              className="mt-1 w-full border-b border-ligne bg-transparent py-2 text-body focus:border-terre focus:outline-none"
             />
           </label>
           <label className="block">
-            <span className="text-xs text-encre/70">
+            <span className="text-micro text-encre/70">
               Combien par semaine — laisse à zéro pour un objectif libre
             </span>
             <input
@@ -139,13 +139,13 @@ export function GoalCard({ goal }: { goal: Goal }) {
               max={7}
               value={goal.target}
               onChange={(e) => updateGoal(goal.id, { target: Math.max(0, Number(e.target.value)) })}
-              className="mt-1 w-full border-b border-ligne bg-transparent py-2 text-[15px] focus:border-terre focus:outline-none"
+              className="mt-1 w-full border-b border-ligne bg-transparent py-2 text-body focus:border-terre focus:outline-none"
             />
           </label>
           <button
             type="button"
             onClick={() => deleteGoal(goal.id)}
-            className="min-h-11 rounded-pill border border-ligne px-4 text-sm text-encre/70 transition-colors hover:border-terre"
+            className="min-h-11 rounded-pill border border-ligne px-4 text-small text-encre/70 transition-colors hover:border-terre"
           >
             Supprimer cet objectif
           </button>

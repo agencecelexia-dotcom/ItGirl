@@ -18,11 +18,11 @@ export function BookCover({ book }: { book: Book }) {
       className="flex h-full w-full flex-col justify-end rounded-[14px] p-3"
       style={{ backgroundColor: cssColor(coverColorToken(book.id)) }}
     >
-      <p className="font-display uppercase leading-tight tracking-[0.03em] text-encre text-[13px] sm:text-sm">
+      <p className="font-display uppercase leading-tight tracking-[0.03em] text-encre text-small">
         {book.title}
       </p>
       {/* Pleine encre : à 70 % le nom passait sous le AA sur les aplats soutenus. */}
-      {book.author && <p className="mt-1 text-[10px] text-encre">{book.author}</p>}
+      {book.author && <p className="mt-1 text-micro text-encre">{book.author}</p>}
     </div>
   );
 }

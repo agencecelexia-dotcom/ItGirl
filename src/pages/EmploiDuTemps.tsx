@@ -54,7 +54,7 @@ export function EmploiDuTemps() {
 
   return (
     <div className="mx-auto max-w-5xl px-5 py-5 sm:px-8 sm:py-8">
-      <h1 className="font-display uppercase tracking-[0.03em] text-vin text-2xl sm:text-3xl">
+      <h1 className="font-display uppercase text-vin text-h1">
         Emploi du temps
       </h1>
 
@@ -69,7 +69,7 @@ export function EmploiDuTemps() {
               setView(item.id);
             }}
             aria-pressed={view === item.id}
-            className={`min-h-11 rounded-pill border px-4 text-sm transition-colors ${
+            className={`min-h-11 rounded-pill border px-4 text-small transition-colors ${
               view === item.id ? "border-terre text-encre" : "border-ligne text-encre/70"
             }`}
           >
@@ -87,7 +87,7 @@ export function EmploiDuTemps() {
         >
           ‹
         </button>
-        <p className="min-w-0 flex-1 text-center text-sm text-encre/70 first-letter:uppercase">
+        <p className="min-w-0 flex-1 text-center text-small text-encre/70 first-letter:uppercase">
           {label}
         </p>
         <button
@@ -104,7 +104,7 @@ export function EmploiDuTemps() {
         <button
           type="button"
           onClick={() => setAnchor(new Date())}
-          className="rounded-pill px-3 py-1.5 text-xs text-encre/70 underline underline-offset-4"
+          className="rounded-pill px-3 py-1.5 text-micro text-encre/70 underline underline-offset-4"
         >
           Revenir à aujourd'hui
         </button>

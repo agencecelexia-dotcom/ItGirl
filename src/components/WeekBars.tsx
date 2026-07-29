@@ -25,10 +25,10 @@ export function WeekBars({ goal }: { goal: Goal }) {
 
   return (
     <section>
-      <h3 className="font-display uppercase tracking-[0.03em] text-sm text-encre/70">
+      <h3 className="font-display uppercase text-label text-encre/70">
         Semaine après semaine
       </h3>
-      <p className="mt-1 text-xs text-encre/70">{goal.name}</p>
+      <p className="mt-1 text-micro text-encre/70">{goal.name}</p>
       <svg
         viewBox={`0 0 ${WIDTH} ${weeks.length * ROW}`}
         className="mt-3 w-full max-w-[320px]"

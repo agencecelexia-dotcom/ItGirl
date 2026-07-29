@@ -31,10 +31,10 @@ function MoodTile({ photo }: { photo: Photo }) {
             onChange={(e) => updatePhoto(photo.id, { caption: e.target.value })}
             placeholder="une légende, si tu veux"
             aria-label="Légende"
-            className="pointer-events-auto w-full bg-transparent font-script text-xl text-rose placeholder:text-rose/70 focus:outline-none"
+            className="pointer-events-auto w-full bg-transparent font-script text-script text-rose placeholder:text-rose/70 focus:outline-none"
           />
         ) : (
-          photo.caption && <p className="font-script text-xl text-rose">{photo.caption}</p>
+          photo.caption && <p className="font-script text-script text-rose">{photo.caption}</p>
         )}
       </figcaption>
 
@@ -89,7 +89,7 @@ export function Moodboard() {
   return (
     <div className="px-3 py-5 sm:px-5 sm:py-8">
       <div className="mb-4 flex flex-wrap items-end gap-3 px-2">
-        <h1 className="font-display uppercase tracking-[0.03em] text-vin text-2xl sm:text-3xl">Moodboard</h1>
+        <h1 className="font-display uppercase text-vin text-h1">Moodboard</h1>
 
         <form onSubmit={submitLink} className="ml-auto flex items-center gap-2">
           <input
@@ -97,12 +97,12 @@ export function Moodboard() {
             onChange={(e) => setLink(e.target.value)}
             placeholder="Coller un lien d'image"
             aria-label="Coller un lien d'image"
-            className="w-44 border-b border-ligne bg-transparent py-2 text-sm placeholder:text-encre/70 focus:border-terre focus:outline-none sm:w-56"
+            className="w-44 border-b border-ligne bg-transparent py-2 text-small placeholder:text-encre/70 focus:border-terre focus:outline-none sm:w-56"
           />
           <button
             type="button"
             onClick={() => fileInput.current?.click()}
-            className="min-h-11 shrink-0 rounded-pill border border-terre px-4 text-sm text-encre"
+            className="min-h-11 shrink-0 rounded-pill border border-terre px-4 text-small text-encre"
           >
             Choisir une photo
           </button>
@@ -121,7 +121,7 @@ export function Moodboard() {
       </div>
 
       {(error || storageFull) && (
-        <p className="mb-4 px-2 text-sm text-encre/70">
+        <p className="mb-4 px-2 text-small text-encre/70">
           {error ??
             "La mémoire de l'appareil est pleine. Retire quelques images pour pouvoir en garder d'autres."}
         </p>
@@ -135,7 +135,7 @@ export function Moodboard() {
           ))}
         </div>
       ) : (
-        <p className="px-2 text-sm text-encre/70">
+        <p className="px-2 text-small text-encre/70">
           Ajoute une première image pour poser l'ambiance du mois.
         </p>
       )}

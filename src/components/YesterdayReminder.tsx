@@ -18,15 +18,15 @@ export function YesterdayReminder() {
 
   return (
     <section className="rounded-card border border-ligne p-5">
-      <p className="text-sm text-encre/70">{sentence(leftovers.length)}</p>
+      <p className="text-small text-encre/70">{sentence(leftovers.length)}</p>
       <ul className="mt-3 space-y-2">
         {leftovers.map((task) => (
           <li key={task.id} className="flex flex-wrap items-center justify-between gap-2">
-            <span className="text-[15px]">{task.text}</span>
+            <span className="text-body">{task.text}</span>
             <button
               type="button"
               onClick={() => repeatTaskToday(task.id)}
-              className="rounded-pill border border-ligne px-3 py-1.5 text-xs text-encre/70 transition-colors hover:border-terre"
+              className="rounded-pill border border-ligne px-3 py-1.5 text-micro text-encre/70 transition-colors hover:border-terre"
             >
               Reprendre aujourd'hui
             </button>

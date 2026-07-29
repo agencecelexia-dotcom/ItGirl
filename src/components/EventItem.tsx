@@ -40,11 +40,11 @@ export function EventItem({ event, compact }: EventItemProps) {
       }`}
     >
       {time && (
-        <p className={`text-encre/70 tabular-nums ${compact ? "text-[11px]" : "text-xs"}`}>
+        <p className={`text-encre/70 tabular-nums ${compact ? "text-micro" : "text-micro"}`}>
           {time}
         </p>
       )}
-      <p className={`hyphens-auto ${compact ? "text-[13px] leading-snug" : "text-sm"}`}>
+      <p className={`hyphens-auto ${compact ? "text-small leading-snug" : "text-small"}`}>
         {event.title}
       </p>
 

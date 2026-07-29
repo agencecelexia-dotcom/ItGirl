@@ -16,7 +16,7 @@ export function DayView({ anchor }: { anchor: Date }) {
           ))}
         </ul>
       ) : (
-        <p className="text-sm text-encre/70">Rien de prévu ce jour-là.</p>
+        <p className="text-small text-encre/70">Rien de prévu ce jour-là.</p>
       )}
     </section>
   );

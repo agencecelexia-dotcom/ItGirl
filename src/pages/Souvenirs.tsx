@@ -22,7 +22,7 @@ function SouvenirTile({ photo }: { photo: Photo }) {
 
         <figcaption className="absolute inset-x-0 bottom-0 p-3">
           {date && (
-            <p className="font-display uppercase tracking-[0.04em] text-beurre text-[13px] leading-tight">
+            <p className="font-display uppercase tracking-[0.04em] text-beurre text-small leading-tight">
               {formatDayTitle(date)}
             </p>
           )}
@@ -33,14 +33,14 @@ function SouvenirTile({ photo }: { photo: Photo }) {
               onBlur={() => setEditing(false)}
               autoFocus
               aria-label="Légende du souvenir"
-              className="-mt-1 w-full bg-transparent font-script text-xl text-rose placeholder:text-rose/70 focus:outline-none"
+              className="-mt-1 w-full bg-transparent font-script text-script text-rose placeholder:text-rose/70 focus:outline-none"
               placeholder="une légende"
             />
           ) : (
             <button
               type="button"
               onClick={() => setEditing(true)}
-              className="-mt-1 block w-full text-left font-script text-xl text-rose"
+              className="-mt-1 block w-full text-left font-script text-script text-rose"
             >
               {photo.caption || "une légende"}
             </button>
@@ -98,11 +98,11 @@ export function Souvenirs() {
   return (
     <div className="mx-auto max-w-5xl px-5 py-5 sm:px-8 sm:py-8">
       <div className="flex flex-wrap items-end justify-between gap-3">
-        <h1 className="font-display uppercase tracking-[0.03em] text-vin text-2xl sm:text-3xl">Souvenirs</h1>
+        <h1 className="font-display uppercase text-vin text-h1">Souvenirs</h1>
         <button
           type="button"
           onClick={() => fileInput.current?.click()}
-          className="min-h-11 rounded-pill border border-terre px-4 text-sm text-encre"
+          className="min-h-11 rounded-pill border border-terre px-4 text-small text-encre"
         >
           Ajouter une photo
         </button>
@@ -120,21 +120,21 @@ export function Souvenirs() {
       </div>
 
       {(error || storageFull) && (
-        <p className="mt-3 text-sm text-encre/70">
+        <p className="mt-3 text-small text-encre/70">
           {error ??
             "La mémoire de l'appareil est pleine. Retire quelques images pour pouvoir en garder d'autres."}
         </p>
       )}
 
       {photos.length === 0 ? (
-        <p className="mt-3 text-sm text-encre/70">
+        <p className="mt-3 text-small text-encre/70">
           Coche une balade et ajoute la photo : elle arrivera ici.
         </p>
       ) : (
         <div className="mt-8 space-y-10">
           {[...weeks].map(([key, week]) => (
             <section key={key}>
-              <h2 className="font-display uppercase tracking-[0.04em] text-sm text-encre/70 first-letter:uppercase">
+              <h2 className="font-display uppercase text-label text-encre/70 first-letter:uppercase">
                 {key === "sans-date"
                   ? "Sans date"
                   : formatWeekLabel(new Date(`${key}T12:00:00`))}

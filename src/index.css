@@ -1,6 +1,74 @@
 @import "tailwindcss";
 
 /*
+ * Polices servies depuis le projet, pas depuis un CDN : l'app doit pouvoir
+ * s'ouvrir hors ligne sans perdre sa typographie. Fichiers variables, un par
+ * sous-ensemble — le latin étendu porte les caractères que le latin n'a pas.
+ */
+@font-face {
+  font-family: "Fraunces";
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url("/fonts/fraunces-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Fraunces";
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url("/fonts/fraunces-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+    U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Caveat";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/fonts/caveat-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Caveat";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/fonts/caveat-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+    U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 300 800;
+  font-display: swap;
+  src: url("/fonts/nunito-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 300 800;
+  font-display: swap;
+  src: url("/fonts/nunito-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+    U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/*
  * `static` force Tailwind à émettre toutes les variables du thème. Sans lui, il
  * n'écrit que celles qu'il repère dans une classe utilitaire — or la moitié de
  * la palette n'est utilisée qu'en style calculé, via var(--color-…).
@@ -24,9 +92,48 @@
   --color-miel: #fcc88a;
   --color-vin: #aa1945;
 
-  --font-display: "Bodoni Moda", serif;
-  --font-script: "Parisienne", cursive;
-  --font-sans: "Instrument Sans", system-ui, sans-serif;
+  /* Rondeur partout : un serif doux, une vraie écriture à la main, un sans arrondi. */
+  --font-display: "Fraunces", Georgia, serif;
+  --font-script: "Caveat", "Segoe Script", cursive;
+  --font-sans: "Nunito", system-ui, sans-serif;
+
+  /*
+   * Une seule échelle, fluide entre le téléphone et la tablette paysage.
+   * Chaque échelon se distingue du suivant : rien ne doit avoir la même taille
+   * sans avoir le même rôle.
+   */
+  --text-micro: clamp(0.72rem, 0.68rem + 0.16vw, 0.78rem);
+  --text-micro--line-height: 1.45;
+
+  --text-small: clamp(0.81rem, 0.77rem + 0.17vw, 0.88rem);
+  --text-small--line-height: 1.5;
+
+  /* Les intertitres : petits, mais en capitales espacées, donc lus comme des repères. */
+  --text-label: clamp(0.81rem, 0.74rem + 0.28vw, 0.94rem);
+  --text-label--line-height: 1.3;
+  --text-label--letter-spacing: 0.1em;
+
+  --text-body: clamp(0.94rem, 0.9rem + 0.19vw, 1.03rem);
+  --text-body--line-height: 1.6;
+
+  --text-h2: clamp(1.19rem, 0.99rem + 0.83vw, 1.5rem);
+  --text-h2--line-height: 1.2;
+  --text-h2--letter-spacing: 0.04em;
+
+  --text-h1: clamp(1.63rem, 1.13rem + 2.05vw, 2.38rem);
+  --text-h1--line-height: 1.08;
+  --text-h1--letter-spacing: 0.03em;
+
+  --text-display: clamp(1.88rem, 0.68rem + 4.9vw, 3.75rem);
+  --text-display--line-height: 1;
+  --text-display--letter-spacing: 0.04em;
+
+  /* L'écriture manuscrite paraît petite à taille égale : on la monte d'un cran. */
+  --text-script: clamp(1.38rem, 1.15rem + 0.94vw, 1.72rem);
+  --text-script--line-height: 1.15;
+
+  --text-script-lg: clamp(2rem, 1.1rem + 3.7vw, 3.38rem);
+  --text-script-lg--line-height: 1.05;
 
   --radius-card: 20px;
   --radius-pill: 999px;
@@ -47,7 +154,13 @@
 
   body {
     margin: 0;
-    @apply bg-creme text-encre font-sans;
+    @apply bg-creme text-encre font-sans text-body;
+  }
+
+  /* Fraunces s'adoucit par ses axes : SOFT arrondit les angles, WONK courbe les italiques. */
+  .font-display {
+    font-variation-settings: "SOFT" 90, "WONK" 1;
+    font-optical-sizing: auto;
   }
 
   :focus-visible {

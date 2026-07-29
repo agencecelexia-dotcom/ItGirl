@@ -19,15 +19,15 @@ export function AddEventForm({ date, onDateChange }: AddEventFormProps) {
   };
 
   const field =
-    "mt-1 w-full border-b border-ligne bg-transparent py-2 text-[15px] placeholder:text-encre/50 focus:border-terre focus:outline-none";
+    "mt-1 w-full border-b border-ligne bg-transparent py-2 text-body placeholder:text-encre/50 focus:border-terre focus:outline-none";
 
   return (
     <form onSubmit={submit} className="rounded-card border border-ligne p-5">
-      <h2 className="font-display uppercase tracking-[0.03em] text-lg">Ajouter</h2>
+      <h2 className="font-display uppercase text-h2">Ajouter</h2>
 
       <div className="mt-3 flex flex-wrap gap-4">
         <label className="min-w-32 flex-1">
-          <span className="text-xs text-encre/70">Quand</span>
+          <span className="text-micro text-encre/70">Quand</span>
           <input
             type="date"
             value={date}
@@ -36,7 +36,7 @@ export function AddEventForm({ date, onDateChange }: AddEventFormProps) {
           />
         </label>
         <label className="min-w-24 flex-1">
-          <span className="text-xs text-encre/70">Heure, si tu en as une</span>
+          <span className="text-micro text-encre/70">Heure, si tu en as une</span>
           <input
             type="time"
             value={time}
@@ -47,7 +47,7 @@ export function AddEventForm({ date, onDateChange }: AddEventFormProps) {
       </div>
 
       <label className="mt-3 block">
-        <span className="text-xs text-encre/70">Quoi</span>
+        <span className="text-micro text-encre/70">Quoi</span>
         <input
           value={title}
           onChange={(e) => setTitle(e.target.value)}
@@ -59,7 +59,7 @@ export function AddEventForm({ date, onDateChange }: AddEventFormProps) {
       <button
         type="submit"
         disabled={!title.trim()}
-        className="mt-4 min-h-11 rounded-pill border border-terre px-4 text-sm text-encre transition-opacity disabled:opacity-40"
+        className="mt-4 min-h-11 rounded-pill border border-terre px-4 text-small text-encre transition-opacity disabled:opacity-40"
       >
         Ajouter
       </button>

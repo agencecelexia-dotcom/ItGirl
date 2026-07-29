@@ -67,7 +67,7 @@ export function TaskRow({ task }: { task: Task }) {
       <div className="min-w-0 flex-1 py-2.5">
         <p>
           <span
-            className="task-text text-[15px] leading-relaxed"
+            className="task-text text-body leading-relaxed"
             data-done={task.done}
             style={goal ? ({ "--trait": goalColor(goal) } as React.CSSProperties) : undefined}
           >
@@ -91,7 +91,7 @@ export function TaskRow({ task }: { task: Task }) {
               <button
                 type="button"
                 onClick={() => fileInput.current?.click()}
-                className="rounded-pill border border-ligne px-2.5 py-1 text-xs text-encre/70 transition-colors hover:border-terre"
+                className="rounded-pill border border-ligne px-2.5 py-1 text-micro text-encre/70 transition-colors hover:border-terre"
               >
                 + photo
               </button>
@@ -109,12 +109,12 @@ export function TaskRow({ task }: { task: Task }) {
           )}
 
           {task.done && goal && (
-            <span className="text-xs text-encre/70">
+            <span className="text-micro text-encre/70">
               {progressLabel(goalProgress(goal.id, new Date()), goal.target)}
             </span>
           )}
         </div>
-        {error && <p className="mt-1 text-xs text-encre/70">{error}</p>}
+        {error && <p className="mt-1 text-micro text-encre/70">{error}</p>}
       </div>
 
       <button
