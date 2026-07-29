@@ -47,6 +47,34 @@ export function formatMonth(date: Date): string {
   return new Intl.DateTimeFormat("fr-FR", { month: "long" }).format(date);
 }
 
+export function isWeekend(date: Date): boolean {
+  const day = date.getDay();
+  return day === 0 || day === 6;
+}
+
+export function isSameDay(a: Date, b: Date): boolean {
+  return toDateKey(a) === toDateKey(b);
+}
+
+/** « lun. », « mar. »… */
+export function formatWeekdayShort(date: Date): string {
+  return new Intl.DateTimeFormat("fr-FR", { weekday: "short" }).format(date);
+}
+
+/** « 4 – 10 août », ou « 28 juillet – 3 août » à cheval sur deux mois. */
+export function formatWeekLabel(monday: Date): string {
+  const sunday = addDays(monday, 6);
+  const day = new Intl.DateTimeFormat("fr-FR", { day: "numeric" });
+  const dayMonth = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long" });
+  return monday.getMonth() === sunday.getMonth()
+    ? `${day.format(monday)} – ${dayMonth.format(sunday)}`
+    : `${dayMonth.format(monday)} – ${dayMonth.format(sunday)}`;
+}
+
+export function formatMonthYear(date: Date): string {
+  return new Intl.DateTimeFormat("fr-FR", { month: "long", year: "numeric" }).format(date);
+}
+
 /** Les lundis de chaque semaine touchant le mois de `date`. */
 export function weeksOfMonth(date: Date): Date[] {
   const last = new Date(date.getFullYear(), date.getMonth(), daysInMonth(date));

@@ -29,6 +29,17 @@ export interface Task {
   position: number;
 }
 
+/** Un rendez-vous fixe, pas une tâche : il ne se coche pas. */
+export interface Event {
+  id: string;
+  date: string;
+  /** HH:MM, facultatif : tout n'a pas une heure. */
+  start_time?: string;
+  end_time?: string;
+  title: string;
+  kind: string;
+}
+
 export interface Habit {
   id: string;
   label: string;

@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import type { DayEntry, Goal, GoalLog, Habit, HabitLog, Task } from "./types";
+import type { DayEntry, Event, Goal, GoalLog, Habit, HabitLog, Task } from "./types";
 
 export interface AppState {
   goals: Goal[];
@@ -8,6 +8,7 @@ export interface AppState {
   habits: Habit[];
   habitLogs: HabitLog[];
   dayEntries: DayEntry[];
+  events: Event[];
 }
 
 export interface Store extends AppState {
@@ -31,6 +32,11 @@ export interface Store extends AppState {
   /** Ne retire qu'un log saisi à la main : décocher une tâche reste le seul moyen d'annuler la sienne. */
   removeGoalLog: (goalId: string, date: Date) => void;
   manualLogCount: (goalId: string, date: Date) => number;
+  addEvent: (date: string, title: string, startTime?: string, endTime?: string) => void;
+  deleteEvent: (id: string) => void;
+  /** Sans heure d'abord, puis par heure croissante. */
+  eventsFor: (date: string) => Event[];
+  goalsDoneOn: (date: string) => string[];
 }
 
 export const StoreContext = createContext<Store | null>(null);

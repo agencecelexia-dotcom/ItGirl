@@ -54,6 +54,7 @@ function seed(): AppState {
     ],
     habitLogs: [],
     dayEntries: [],
+    events: [],
   };
 }
 
@@ -258,6 +259,32 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
+  const addEvent = useCallback(
+    (date: string, title: string, startTime?: string, endTime?: string) => {
+      const trimmed = title.trim();
+      if (!trimmed || !date) return;
+      setState((s) => ({
+        ...s,
+        events: [
+          ...s.events,
+          {
+            id: uid(),
+            date,
+            title: trimmed,
+            start_time: startTime || undefined,
+            end_time: endTime || undefined,
+            kind: "rendez-vous",
+          },
+        ],
+      }));
+    },
+    [],
+  );
+
+  const deleteEvent = useCallback((id: string) => {
+    setState((s) => ({ ...s, events: s.events.filter((e) => e.id !== id) }));
+  }, []);
+
   const value = useMemo<Store>(
     () => ({
       ...state,
@@ -292,6 +319,15 @@ export function StoreProvider({ children }: { children: ReactNode }) {
           (l) => l.goal_id === goalId && !l.task_id && l.date >= from && l.date <= to,
         ).length;
       },
+      addEvent,
+      deleteEvent,
+      eventsFor: (date) =>
+        state.events
+          .filter((e) => e.date === date)
+          .sort((a, b) => (a.start_time ?? "").localeCompare(b.start_time ?? "")),
+      goalsDoneOn: (date) => [
+        ...new Set(state.goalLogs.filter((l) => l.date === date).map((l) => l.goal_id)),
+      ],
     }),
     [
       state,
@@ -309,6 +345,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       deleteGoal,
       addGoalLog,
       removeGoalLog,
+      addEvent,
+      deleteEvent,
     ],
   );
 
