@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Navigation, type Section } from "./components/Navigation";
 import { GrainOverlay } from "./components/GrainOverlay";
+import { StoreProvider } from "./lib/store";
 import { Today } from "./pages/Today";
 import { Objectifs } from "./pages/Objectifs";
 import { EmploiDuTemps } from "./pages/EmploiDuTemps";
@@ -22,13 +23,15 @@ function App() {
   const Page = PAGES[active];
 
   return (
-    <div className="min-h-screen lg:flex">
-      <Navigation active={active} onChange={setActive} />
-      <main className="pb-20 lg:flex-1 lg:pb-0">
-        <Page />
-      </main>
-      <GrainOverlay />
-    </div>
+    <StoreProvider>
+      <div className="min-h-screen lg:flex">
+        <Navigation active={active} onChange={setActive} />
+        <main className="pb-20 lg:flex-1 lg:pb-0">
+          <Page />
+        </main>
+        <GrainOverlay />
+      </div>
+    </StoreProvider>
   );
 }
 

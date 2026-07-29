@@ -8,7 +8,7 @@ export function StubPage({ title }: StubPageProps) {
       <h1 className="font-display uppercase tracking-[0.03em] text-2xl sm:text-3xl">
         {title}
       </h1>
-      <p className="mt-2 text-sm text-encre/60">Bientôt ici.</p>
+      <p className="mt-2 text-sm text-encre/70">Bientôt ici.</p>
     </div>
   );
 }

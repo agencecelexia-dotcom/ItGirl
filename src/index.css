@@ -40,3 +40,35 @@
     outline-offset: 2px;
   }
 }
+
+@layer components {
+  /*
+   * Cocher souligne le texte en rose, jamais ne le barre : c'est une célébration.
+   * Le trait est peint en dégradé plutôt qu'en text-decoration, seule façon
+   * de l'animer de gauche à droite (220ms) comme demandé.
+   */
+  .task-text {
+    background-image: linear-gradient(var(--color-rose), var(--color-rose));
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0% 2px;
+    padding-bottom: 5px;
+    transition: background-size 220ms ease-out;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+
+  .task-text[data-done="true"] {
+    background-size: 100% 2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
