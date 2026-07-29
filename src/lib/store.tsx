@@ -56,6 +56,7 @@ function seed(): AppState {
     dayEntries: [],
     events: [],
     books: [],
+    sessions: [],
   };
 }
 
@@ -320,21 +321,26 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     setState((s) => ({ ...s, books: s.books.filter((b) => b.id !== id) }));
   }, []);
 
-  const advanceBook = useCallback((id: string) => {
+  const logReading = useCallback((bookId: string, position: number, note?: string) => {
     setState((s) => {
-      const book = s.books.find((b) => b.id === id);
-      if (!book || book.status === "lu") return s;
+      const book = s.books.find((b) => b.id === bookId);
+      if (!book) return s;
 
-      const current = book.current + 1;
-      const finished = book.total !== undefined && current >= book.total;
+      const sessionId = uid();
+      const today = toDateKey(new Date());
+      const finished = book.total !== undefined && position >= book.total;
 
       return {
         ...s,
+        sessions: [
+          ...s.sessions,
+          { id: sessionId, book_id: bookId, date: today, position, note: note?.trim() || undefined },
+        ],
         books: s.books.map((b) =>
-          b.id === id
+          b.id === bookId
             ? {
                 ...b,
-                current,
+                current: position,
                 status: finished ? "lu" : "en cours",
                 finished_at: finished ? new Date().toISOString() : b.finished_at,
               }
@@ -342,8 +348,36 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         ),
         // L'objectif Lecture peut avoir été supprimé : on ne journalise que s'il existe encore.
         goalLogs: s.goals.some((g) => g.id === "lecture")
-          ? [...s.goalLogs, { id: uid(), goal_id: "lecture", date: toDateKey(new Date()) }]
+          ? [...s.goalLogs, { id: uid(), goal_id: "lecture", date: today, session_id: sessionId }]
           : s.goalLogs,
+      };
+    });
+  }, []);
+
+  /** Corriger une saisie : on efface la session, son log, et on recale le livre sur ce qui reste. */
+  const deleteSession = useCallback((id: string) => {
+    setState((s) => {
+      const session = s.sessions.find((x) => x.id === id);
+      if (!session) return s;
+
+      const remaining = s.sessions.filter((x) => x.id !== id);
+      const forBook = remaining.filter((x) => x.book_id === session.book_id);
+      const current = forBook.reduce((max, x) => Math.max(max, x.position), 0);
+
+      return {
+        ...s,
+        sessions: remaining,
+        goalLogs: s.goalLogs.filter((l) => l.session_id !== id),
+        books: s.books.map((b) => {
+          if (b.id !== session.book_id) return b;
+          const finished = b.total !== undefined && current >= b.total;
+          return {
+            ...b,
+            current,
+            status: forBook.length === 0 ? "à lire" : finished ? "lu" : "en cours",
+            finished_at: finished ? b.finished_at : undefined,
+          };
+        }),
       };
     });
   }, []);
@@ -394,7 +428,12 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       addBook,
       updateBook,
       deleteBook,
-      advanceBook,
+      logReading,
+      deleteSession,
+      sessionsFor: (bookId) =>
+        state.sessions
+          .filter((x) => x.book_id === bookId)
+          .sort((a, b) => b.date.localeCompare(a.date) || b.position - a.position),
     }),
     [
       state,
@@ -417,7 +456,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       addBook,
       updateBook,
       deleteBook,
-      advanceBook,
+      logReading,
+      deleteSession,
     ],
   );
 

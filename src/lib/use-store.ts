@@ -1,5 +1,15 @@
 import { createContext, useContext } from "react";
-import type { Book, DayEntry, Event, Goal, GoalLog, Habit, HabitLog, Task } from "./types";
+import type {
+  Book,
+  DayEntry,
+  Event,
+  Goal,
+  GoalLog,
+  Habit,
+  HabitLog,
+  ReadingSession,
+  Task,
+} from "./types";
 
 export interface AppState {
   goals: Goal[];
@@ -10,6 +20,7 @@ export interface AppState {
   dayEntries: DayEntry[];
   events: Event[];
   books: Book[];
+  sessions: ReadingSession[];
 }
 
 export interface Store extends AppState {
@@ -41,8 +52,11 @@ export interface Store extends AppState {
   addBook: (title: string, author: string, unit: Book["unit"], total?: number) => void;
   updateBook: (id: string, patch: Partial<Omit<Book, "id">>) => void;
   deleteBook: (id: string) => void;
-  /** +1 page ou chapitre : fait passer en cours, puis en lu au total, et nourrit l'objectif Lecture. */
-  advanceBook: (id: string) => void;
+  /** Note une lecture : où elle s'est arrêtée et ce qu'elle en retient. Nourrit l'objectif Lecture. */
+  logReading: (bookId: string, position: number, note?: string) => void;
+  /** De la plus récente à la plus ancienne. */
+  sessionsFor: (bookId: string) => ReadingSession[];
+  deleteSession: (id: string) => void;
 }
 
 export const StoreContext = createContext<Store | null>(null);

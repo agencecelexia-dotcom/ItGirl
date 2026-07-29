@@ -17,6 +17,8 @@ export interface GoalLog {
   date: string;
   /** Renseigné quand le log vient d'une tâche cochée, pour pouvoir le retirer si elle est décochée. */
   task_id?: string;
+  /** Renseigné quand le log vient d'une session de lecture. */
+  session_id?: string;
 }
 
 export interface Task {
@@ -61,6 +63,16 @@ export interface Book {
   /** Une phrase écrite à la fin, jamais imposée. */
   note?: string;
   finished_at?: string;
+}
+
+/** Une fois qu'elle a lu : où elle s'est arrêtée, et ce qu'elle en retient. */
+export interface ReadingSession {
+  id: string;
+  book_id: string;
+  date: string;
+  /** La page ou le chapitre où elle s'est arrêtée. */
+  position: number;
+  note?: string;
 }
 
 export interface HabitLog {

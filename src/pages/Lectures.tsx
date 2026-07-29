@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useStore } from "../lib/use-store";
 import { BookCard } from "../components/BookCard";
+import { BookDetail } from "../components/BookDetail";
 import type { Book, BookStatus } from "../lib/types";
 
 /** Tri automatique : ce qui attend, ce qui est en train, ce qui est fini. */
@@ -8,6 +9,7 @@ const ORDER: BookStatus[] = ["à lire", "en cours", "lu"];
 
 export function Lectures() {
   const { books, addBook } = useStore();
+  const [openedId, setOpenedId] = useState<string>();
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
@@ -25,6 +27,15 @@ export function Lectures() {
 
   const field =
     "mt-1 w-full border-b border-ligne bg-transparent py-2 text-[15px] placeholder:text-encre/50 focus:border-terre focus:outline-none";
+
+  const opened = books.find((book) => book.id === openedId);
+  if (opened) {
+    return (
+      <div className="mx-auto max-w-2xl px-5 py-5 sm:px-8 sm:py-8">
+        <BookDetail book={opened} onBack={() => setOpenedId(undefined)} />
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto max-w-4xl px-5 py-5 sm:px-8 sm:py-8">
@@ -48,7 +59,7 @@ export function Lectures() {
               </h2>
               <div className="mt-3 grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 lg:grid-cols-4">
                 {shelf.map((book) => (
-                  <BookCard key={book.id} book={book} />
+                  <BookCard key={book.id} book={book} onOpen={() => setOpenedId(book.id)} />
                 ))}
               </div>
             </section>

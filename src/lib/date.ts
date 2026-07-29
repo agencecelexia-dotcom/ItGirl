@@ -1,11 +1,14 @@
-export function formatDayTitle(date: Date): string {
+/** « mardi 28 juillet » */
+export function formatDayLong(date: Date): string {
   return new Intl.DateTimeFormat("fr-FR", {
     weekday: "long",
     day: "numeric",
     month: "long",
-  })
-    .format(date)
-    .toUpperCase();
+  }).format(date);
+}
+
+export function formatDayTitle(date: Date): string {
+  return formatDayLong(date).toUpperCase();
 }
 
 /** Clé locale YYYY-MM-DD — jamais toISOString, qui décalerait le jour selon le fuseau. */
