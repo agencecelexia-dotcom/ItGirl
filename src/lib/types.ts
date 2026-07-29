@@ -47,6 +47,22 @@ export interface Habit {
   position: number;
 }
 
+export type BookStatus = "à lire" | "en cours" | "lu";
+
+export interface Book {
+  id: string;
+  title: string;
+  author?: string;
+  cover_url?: string;
+  unit: "page" | "chapitre";
+  total?: number;
+  current: number;
+  status: BookStatus;
+  /** Une phrase écrite à la fin, jamais imposée. */
+  note?: string;
+  finished_at?: string;
+}
+
 export interface HabitLog {
   id: string;
   habit_id: string;

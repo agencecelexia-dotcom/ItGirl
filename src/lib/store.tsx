@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
-import type { DayEntry, Goal } from "./types";
+import type { Book, DayEntry, Goal } from "./types";
 import { StoreContext, type AppState, type Store } from "./use-store";
 import { toDateKey, weekRange } from "./date";
 
@@ -55,6 +55,7 @@ function seed(): AppState {
     habitLogs: [],
     dayEntries: [],
     events: [],
+    books: [],
   };
 }
 
@@ -285,6 +286,68 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     setState((s) => ({ ...s, events: s.events.filter((e) => e.id !== id) }));
   }, []);
 
+  const addBook = useCallback(
+    (title: string, author: string, unit: Book["unit"], total?: number) => {
+      const trimmed = title.trim();
+      if (!trimmed) return;
+      setState((s) => ({
+        ...s,
+        books: [
+          ...s.books,
+          {
+            id: uid(),
+            title: trimmed,
+            author: author.trim() || undefined,
+            unit,
+            total: total && total > 0 ? total : undefined,
+            current: 0,
+            status: "à lire",
+          },
+        ],
+      }));
+    },
+    [],
+  );
+
+  const updateBook = useCallback((id: string, patch: Partial<Omit<Book, "id">>) => {
+    setState((s) => ({
+      ...s,
+      books: s.books.map((b) => (b.id === id ? { ...b, ...patch } : b)),
+    }));
+  }, []);
+
+  const deleteBook = useCallback((id: string) => {
+    setState((s) => ({ ...s, books: s.books.filter((b) => b.id !== id) }));
+  }, []);
+
+  const advanceBook = useCallback((id: string) => {
+    setState((s) => {
+      const book = s.books.find((b) => b.id === id);
+      if (!book || book.status === "lu") return s;
+
+      const current = book.current + 1;
+      const finished = book.total !== undefined && current >= book.total;
+
+      return {
+        ...s,
+        books: s.books.map((b) =>
+          b.id === id
+            ? {
+                ...b,
+                current,
+                status: finished ? "lu" : "en cours",
+                finished_at: finished ? new Date().toISOString() : b.finished_at,
+              }
+            : b,
+        ),
+        // L'objectif Lecture peut avoir été supprimé : on ne journalise que s'il existe encore.
+        goalLogs: s.goals.some((g) => g.id === "lecture")
+          ? [...s.goalLogs, { id: uid(), goal_id: "lecture", date: toDateKey(new Date()) }]
+          : s.goalLogs,
+      };
+    });
+  }, []);
+
   const value = useMemo<Store>(
     () => ({
       ...state,
@@ -328,6 +391,10 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       goalsDoneOn: (date) => [
         ...new Set(state.goalLogs.filter((l) => l.date === date).map((l) => l.goal_id)),
       ],
+      addBook,
+      updateBook,
+      deleteBook,
+      advanceBook,
     }),
     [
       state,
@@ -347,6 +414,10 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       removeGoalLog,
       addEvent,
       deleteEvent,
+      addBook,
+      updateBook,
+      deleteBook,
+      advanceBook,
     ],
   );
 
