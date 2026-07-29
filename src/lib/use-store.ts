@@ -24,6 +24,13 @@ export interface Store extends AppState {
   entryFor: (date: string) => DayEntry | undefined;
   updateEntry: (date: string, patch: Partial<Omit<DayEntry, "id" | "date">>) => void;
   goalProgress: (goalId: string, date: Date) => number;
+  addGoal: (name: string, target: number, unit: string) => void;
+  updateGoal: (id: string, patch: Partial<Omit<Goal, "id" | "created_at">>) => void;
+  deleteGoal: (id: string) => void;
+  addGoalLog: (goalId: string, date: Date) => void;
+  /** Ne retire qu'un log saisi à la main : décocher une tâche reste le seul moyen d'annuler la sienne. */
+  removeGoalLog: (goalId: string, date: Date) => void;
+  manualLogCount: (goalId: string, date: Date) => number;
 }
 
 export const StoreContext = createContext<Store | null>(null);

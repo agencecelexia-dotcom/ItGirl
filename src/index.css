@@ -61,6 +61,58 @@
   .task-text[data-done="true"] {
     background-size: 100% 2px;
   }
+
+  /* Une pastille accomplie reste très légèrement plus grande que les autres. */
+  .goal-pill[data-filled="true"] {
+    transform: scale(1.06);
+  }
+
+  .goal-pill[data-pop="true"] {
+    animation: pill-pop 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  /* Ondulation en cascade, jouée une seule fois quand la cible vient d'être atteinte. */
+  .goal-pill[data-wave="true"] {
+    animation: pill-wave 300ms ease-out;
+    animation-delay: calc(var(--pill-index) * 60ms);
+  }
+
+  .celebration {
+    animation: banner-in 400ms ease-out;
+  }
+}
+
+@keyframes pill-pop {
+  0% {
+    transform: scale(1);
+  }
+  55% {
+    transform: scale(1.12);
+  }
+  100% {
+    transform: scale(1.06);
+  }
+}
+
+@keyframes pill-wave {
+  0%,
+  100% {
+    transform: scale(1.06);
+  }
+  50% {
+    transform: scale(1.18);
+  }
+}
+
+@keyframes banner-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

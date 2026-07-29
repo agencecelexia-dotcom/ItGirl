@@ -5,6 +5,8 @@ export interface Goal {
   target: number;
   unit: string;
   color: string;
+  /** Définition affichée sous le nom, pour lever toute ambiguïté sur ce qui compte. */
+  note?: string;
   created_at: string;
 }
 

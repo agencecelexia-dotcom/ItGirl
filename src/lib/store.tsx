@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
-import type { DayEntry } from "./types";
+import type { DayEntry, Goal } from "./types";
 import { StoreContext, type AppState, type Store } from "./use-store";
 import { toDateKey, weekRange } from "./date";
 
@@ -17,9 +17,33 @@ function seed(): AppState {
   const now = new Date().toISOString();
   return {
     goals: [
-      { id: "balades", name: "Balades", target: 3, unit: "balade", color: "terre", created_at: now },
-      { id: "sorties", name: "Sorties culturelles", target: 1, unit: "sortie", color: "rose", created_at: now },
-      { id: "lecture", name: "Lecture", target: 0, unit: "fois", color: "menthe", created_at: now },
+      {
+        id: "balades",
+        name: "Balades",
+        target: 3,
+        unit: "balade",
+        color: "terre",
+        note: "Une balade, c'est sortir de chez toi et marcher. Même dix minutes.",
+        created_at: now,
+      },
+      {
+        id: "sorties",
+        name: "Sorties culturelles",
+        target: 1,
+        unit: "sortie",
+        color: "rose",
+        note: "Musée, expo, ce que tu veux.",
+        created_at: now,
+      },
+      {
+        id: "lecture",
+        name: "Lecture",
+        target: 0,
+        unit: "fois",
+        color: "terre",
+        note: "Objectif volontairement flou : lire un chapitre compte.",
+        created_at: now,
+      },
     ],
     goalLogs: [],
     tasks: [],
@@ -177,6 +201,63 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     [],
   );
 
+  const addGoal = useCallback((name: string, target: number, unit: string) => {
+    const trimmed = name.trim();
+    if (!trimmed) return;
+    setState((s) => ({
+      ...s,
+      goals: [
+        ...s.goals,
+        {
+          id: uid(),
+          name: trimmed,
+          target: Math.max(0, target),
+          unit: unit.trim() || "fois",
+          color: "terre",
+          created_at: new Date().toISOString(),
+        },
+      ],
+    }));
+  }, []);
+
+  const updateGoal = useCallback(
+    (id: string, patch: Partial<Omit<Goal, "id" | "created_at">>) => {
+      setState((s) => ({
+        ...s,
+        goals: s.goals.map((g) => (g.id === id ? { ...g, ...patch } : g)),
+      }));
+    },
+    [],
+  );
+
+  const deleteGoal = useCallback((id: string) => {
+    setState((s) => ({
+      ...s,
+      goals: s.goals.filter((g) => g.id !== id),
+      goalLogs: s.goalLogs.filter((l) => l.goal_id !== id),
+      tasks: s.tasks.map((t) => (t.goal_id === id ? { ...t, goal_id: undefined } : t)),
+    }));
+  }, []);
+
+  const addGoalLog = useCallback((goalId: string, date: Date) => {
+    setState((s) => ({
+      ...s,
+      goalLogs: [...s.goalLogs, { id: uid(), goal_id: goalId, date: toDateKey(date) }],
+    }));
+  }, []);
+
+  const removeGoalLog = useCallback((goalId: string, date: Date) => {
+    const [from, to] = weekRange(date);
+    setState((s) => {
+      const manual = s.goalLogs.filter(
+        (l) => l.goal_id === goalId && !l.task_id && l.date >= from && l.date <= to,
+      );
+      const last = manual[manual.length - 1];
+      if (!last) return s;
+      return { ...s, goalLogs: s.goalLogs.filter((l) => l.id !== last.id) };
+    });
+  }, []);
+
   const value = useMemo<Store>(
     () => ({
       ...state,
@@ -200,6 +281,17 @@ export function StoreProvider({ children }: { children: ReactNode }) {
           (l) => l.goal_id === goalId && l.date >= from && l.date <= to,
         ).length;
       },
+      addGoal,
+      updateGoal,
+      deleteGoal,
+      addGoalLog,
+      removeGoalLog,
+      manualLogCount: (goalId, date) => {
+        const [from, to] = weekRange(date);
+        return state.goalLogs.filter(
+          (l) => l.goal_id === goalId && !l.task_id && l.date >= from && l.date <= to,
+        ).length;
+      },
     }),
     [
       state,
@@ -212,6 +304,11 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       addHabit,
       removeHabit,
       updateEntry,
+      addGoal,
+      updateGoal,
+      deleteGoal,
+      addGoalLog,
+      removeGoalLog,
     ],
   );
 

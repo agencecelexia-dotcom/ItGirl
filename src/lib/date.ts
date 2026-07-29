@@ -34,3 +34,25 @@ export function weekRange(date: Date): [string, string] {
   const start = startOfWeek(date);
   return [toDateKey(start), toDateKey(addDays(start, 6))];
 }
+
+export function startOfMonth(date: Date): Date {
+  return new Date(date.getFullYear(), date.getMonth(), 1);
+}
+
+export function daysInMonth(date: Date): number {
+  return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+}
+
+export function formatMonth(date: Date): string {
+  return new Intl.DateTimeFormat("fr-FR", { month: "long" }).format(date);
+}
+
+/** Les lundis de chaque semaine touchant le mois de `date`. */
+export function weeksOfMonth(date: Date): Date[] {
+  const last = new Date(date.getFullYear(), date.getMonth(), daysInMonth(date));
+  const weeks: Date[] = [];
+  for (let d = startOfWeek(startOfMonth(date)); d <= last; d = addDays(d, 7)) {
+    weeks.push(d);
+  }
+  return weeks;
+}
