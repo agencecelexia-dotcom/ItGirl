@@ -19,8 +19,11 @@ export function DayTitleCard({ date, photoUrl, moodWord = "douce" }: DayTitleCar
         <div
           className="absolute inset-0 bg-creme"
           style={{
+            // Sans photo, un lavis de la palette : la carte reste l'élément qui porte l'écran.
             backgroundImage: `
-              radial-gradient(120% 90% at 15% 10%, rgba(217,168,124,0.18), transparent 60%),
+              radial-gradient(90% 70% at 12% 8%, color-mix(in srgb, var(--color-cerisier) 75%, transparent), transparent 65%),
+              radial-gradient(80% 70% at 90% 20%, color-mix(in srgb, var(--color-miel) 55%, transparent), transparent 60%),
+              radial-gradient(95% 85% at 60% 105%, color-mix(in srgb, var(--color-campanule) 65%, transparent), transparent 65%),
               repeating-linear-gradient(135deg, var(--color-ligne) 0px, var(--color-ligne) 1px, transparent 1px, transparent 14px)
             `,
           }}
@@ -30,8 +33,8 @@ export function DayTitleCard({ date, photoUrl, moodWord = "douce" }: DayTitleCar
       <div
         className="absolute inset-0"
         style={{
-          background:
-            "linear-gradient(to top, rgba(59,42,32,0.45), transparent 55%)",
+          // Resserré sur le bas : juste ce qu'il faut pour le titre, sans éteindre le fond.
+          background: "linear-gradient(to top, rgba(59,42,32,0.52), transparent 38%)",
         }}
       />
 

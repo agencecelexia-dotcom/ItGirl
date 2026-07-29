@@ -2,12 +2,14 @@ interface GoalPillsProps {
   count: number;
   /** 0 = objectif libre : on n'affiche que les pastilles remplies, jamais un manque. */
   target: number;
+  /** Couleur CSS de l'objectif, pour qu'on le reconnaisse à sa teinte. */
+  color: string;
   /** Index de la pastille qui vient de se remplir, pour le petit dépassement d'échelle. */
   popped?: number;
   waving?: boolean;
 }
 
-export function GoalPills({ count, target, popped, waving }: GoalPillsProps) {
+export function GoalPills({ count, target, color, popped, waving }: GoalPillsProps) {
   const base = target > 0 ? target : count;
   const bonus = target > 0 ? Math.max(0, count - target) : 0;
 
@@ -18,13 +20,17 @@ export function GoalPills({ count, target, popped, waving }: GoalPillsProps) {
         return (
           <span
             key={i}
-            className={`goal-pill h-3.5 w-3.5 rounded-pill border transition-colors ${
-              filled ? "border-rose bg-rose" : "border-terre"
-            }`}
+            className="goal-pill h-3.5 w-3.5 rounded-pill border transition-colors"
             data-filled={filled}
             data-pop={popped === i}
             data-wave={waving}
-            style={{ "--pill-index": i } as React.CSSProperties}
+            style={
+              {
+                "--pill-index": i,
+                backgroundColor: filled ? color : "transparent",
+                borderColor: filled ? color : "var(--color-terre)",
+              } as React.CSSProperties
+            }
           />
         );
       })}
@@ -34,7 +40,7 @@ export function GoalPills({ count, target, popped, waving }: GoalPillsProps) {
           {Array.from({ length: bonus }, (_, i) => (
             <span
               key={i}
-              className="goal-pill h-2 w-2 rounded-pill border border-terre bg-beurre"
+              className="goal-pill h-2 w-2 rounded-pill border border-terre bg-miel"
               data-filled="true"
               data-pop={popped === target + i}
             />

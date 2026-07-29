@@ -39,7 +39,7 @@ export function Lectures() {
 
   return (
     <div className="mx-auto max-w-4xl px-5 py-5 sm:px-8 sm:py-8">
-      <h1 className="font-display uppercase tracking-[0.03em] text-2xl sm:text-3xl">Lectures</h1>
+      <h1 className="font-display uppercase tracking-[0.03em] text-vin text-2xl sm:text-3xl">Lectures</h1>
 
       {books.length === 0 && (
         <p className="mt-2 text-sm text-encre/70">

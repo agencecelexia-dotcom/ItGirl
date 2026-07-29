@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react
 import type { Book, DayEntry, Goal, Photo } from "./types";
 import { StoreContext, type AppState, type Store } from "./use-store";
 import { toDateKey, weekRange } from "./date";
+import { GOAL_COLORS } from "./colors";
 
 /**
  * Persistance temporaire en localStorage, structurée comme le modèle final.
@@ -22,7 +23,7 @@ function seed(): AppState {
         name: "Balades",
         target: 3,
         unit: "balade",
-        color: "terre",
+        color: "fougere",
         note: "Une balade, c'est sortir de chez toi et marcher. Même dix minutes.",
         created_at: now,
       },
@@ -31,7 +32,7 @@ function seed(): AppState {
         name: "Sorties culturelles",
         target: 1,
         unit: "sortie",
-        color: "rose",
+        color: "pivoine",
         note: "Musée, expo, ce que tu veux.",
         created_at: now,
       },
@@ -40,7 +41,7 @@ function seed(): AppState {
         name: "Lecture",
         target: 0,
         unit: "fois",
-        color: "terre",
+        color: "campanule",
         note: "Objectif volontairement flou : lire un chapitre compte.",
         created_at: now,
       },
@@ -220,7 +221,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
           name: trimmed,
           target: Math.max(0, target),
           unit: unit.trim() || "fois",
-          color: "terre",
+          // On avance dans la palette pour qu'un nouvel objectif ne copie pas ses voisins.
+          color: GOAL_COLORS[s.goals.length % GOAL_COLORS.length],
           created_at: new Date().toISOString(),
         },
       ],

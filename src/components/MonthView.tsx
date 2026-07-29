@@ -8,6 +8,7 @@ import {
   startOfWeek,
   toDateKey,
 } from "../lib/date";
+import { goalColor } from "../lib/colors";
 
 interface MonthViewProps {
   anchor: Date;
@@ -15,7 +16,7 @@ interface MonthViewProps {
 }
 
 export function MonthView({ anchor, onPickDay }: MonthViewProps) {
-  const { eventsFor, goalsDoneOn } = useStore();
+  const { eventsFor, goalsDoneOn, goals: allGoals } = useStore();
   const first = startOfMonth(anchor);
   const total = daysInMonth(anchor);
   const today = new Date();
@@ -64,13 +65,17 @@ export function MonthView({ anchor, onPickDay }: MonthViewProps) {
                 {hasEvents && (
                   <span className="h-1.5 w-1.5 rounded-pill bg-terre" aria-hidden="true" />
                 )}
-                {goals.slice(0, 3).map((goalId) => (
-                  <span
-                    key={goalId}
-                    className="h-1.5 w-1.5 rounded-pill bg-rose"
-                    aria-hidden="true"
-                  />
-                ))}
+                {goals.slice(0, 3).map((goalId) => {
+                  const goal = allGoals.find((g) => g.id === goalId);
+                  return (
+                    <span
+                      key={goalId}
+                      className="h-1.5 w-1.5 rounded-pill"
+                      style={{ backgroundColor: goal ? goalColor(goal) : "var(--color-rose)" }}
+                      aria-hidden="true"
+                    />
+                  );
+                })}
               </span>
 
               <span className="sr-only">

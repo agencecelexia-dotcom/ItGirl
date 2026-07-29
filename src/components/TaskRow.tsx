@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { useStore } from "../lib/use-store";
 import { fileToResizedDataUrl } from "../lib/image";
 import { GoalPicker } from "./GoalPicker";
+import { goalColor } from "../lib/colors";
 import type { Task } from "../lib/types";
 
 /** La pastille porte déjà le nom de l'objectif : inutile de le répéter ici. */
@@ -40,8 +41,13 @@ export function TaskRow({ task }: { task: Task }) {
       >
         <span
           className={`flex h-5 w-5 items-center justify-center rounded-pill border transition-colors ${
-            task.done ? "border-rose bg-rose" : "border-terre"
+            task.done ? "border-transparent" : "border-terre"
           }`}
+          style={
+            task.done
+              ? { backgroundColor: goal ? goalColor(goal) : "var(--color-rose)" }
+              : undefined
+          }
         >
           {task.done && (
             <svg viewBox="0 0 12 12" className="h-3 w-3" aria-hidden="true">
@@ -60,7 +66,11 @@ export function TaskRow({ task }: { task: Task }) {
 
       <div className="min-w-0 flex-1 py-2.5">
         <p>
-          <span className="task-text text-[15px] leading-relaxed" data-done={task.done}>
+          <span
+            className="task-text text-[15px] leading-relaxed"
+            data-done={task.done}
+            style={goal ? ({ "--trait": goalColor(goal) } as React.CSSProperties) : undefined}
+          >
             {task.text}
           </span>
         </p>

@@ -1,7 +1,15 @@
 import { useStore } from "../lib/use-store";
 import { toDateKey } from "../lib/date";
+import { cssColor, tint } from "../lib/colors";
 
-const MOODS = ["légère", "calme", "pleine", "fatiguée", "fière"];
+/** Chaque humeur a sa teinte : on la reconnaît avant de lire le mot. */
+const MOODS = [
+  { word: "légère", color: "campanule" },
+  { word: "calme", color: "fougere" },
+  { word: "pleine", color: "miel" },
+  { word: "fatiguée", color: "pistache" },
+  { word: "fière", color: "pivoine" },
+];
 
 export function EveningCheckIn() {
   const { entryFor, updateEntry } = useStore();
@@ -16,19 +24,24 @@ export function EveningCheckIn() {
       <fieldset className="mt-4">
         <legend className="text-xs text-encre/70">Comment tu te sens</legend>
         <div className="mt-2 flex flex-wrap gap-2">
-          {MOODS.map((mood) => {
-            const selected = entry?.mood === mood;
+          {MOODS.map(({ word, color }) => {
+            const selected = entry?.mood === word;
             return (
               <button
-                key={mood}
+                key={word}
                 type="button"
-                onClick={() => updateEntry(date, { mood: selected ? undefined : mood })}
+                onClick={() => updateEntry(date, { mood: selected ? undefined : word })}
                 aria-pressed={selected}
                 className={`min-h-11 rounded-pill border px-4 py-2 text-sm transition-colors ${
-                  selected ? "border-rose bg-rose/40 text-encre" : "border-ligne text-encre/70"
+                  selected ? "text-encre" : "border-ligne text-encre/70"
                 }`}
+                style={
+                  selected
+                    ? { borderColor: cssColor(color), backgroundColor: tint(color, 45) }
+                    : undefined
+                }
               >
-                {mood}
+                {word}
               </button>
             );
           })}

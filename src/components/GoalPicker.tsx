@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useStore } from "../lib/use-store";
+import { cssColor, goalColorToken, tint } from "../lib/colors";
 
 interface GoalPickerProps {
   value?: string;
@@ -20,10 +21,16 @@ export function GoalPicker({ value, onChange, placeholder = "objectif" }: GoalPi
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
         className={`rounded-pill border px-2.5 py-1 text-xs transition-colors ${
-          selected
-            ? "border-terre text-encre"
-            : "border-ligne text-encre/70 hover:border-terre"
+          selected ? "text-encre" : "border-ligne text-encre/70 hover:border-terre"
         }`}
+        style={
+          selected
+            ? {
+                borderColor: cssColor(goalColorToken(selected)),
+                backgroundColor: tint(goalColorToken(selected), 35),
+              }
+            : undefined
+        }
       >
         {selected ? selected.name : `+ ${placeholder}`}
       </button>

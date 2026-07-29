@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { useStore } from "../lib/use-store";
 import { toDateKey } from "../lib/date";
+import { cssColor, tint } from "../lib/colors";
+
+const RITUAL_COLORS = ["campanule", "fougere", "cerisier", "miel", "pistache", "pivoine"];
 
 export function Rituals() {
   const { habits, isHabitDone, toggleHabit, addHabit, removeHabit } = useStore();
@@ -29,8 +32,10 @@ export function Rituals() {
 
       {habits.length > 0 ? (
         <ul className="mt-3 flex flex-wrap gap-2">
-          {habits.map((habit) => {
+          {habits.map((habit, index) => {
             const done = isHabitDone(habit.id, date);
+            // Chaque rituel garde sa teinte, prise à sa place dans la liste.
+            const color = RITUAL_COLORS[index % RITUAL_COLORS.length];
             return (
               <li key={habit.id} className="flex items-center">
                 <button
@@ -38,8 +43,13 @@ export function Rituals() {
                   onClick={() => toggleHabit(habit.id, date)}
                   aria-pressed={done}
                   className={`min-h-11 rounded-pill border px-4 py-2 text-sm transition-colors ${
-                    done ? "border-rose bg-rose/40 text-encre" : "border-ligne text-encre/70"
+                    done ? "text-encre" : "border-ligne text-encre/70"
                   }`}
+                  style={
+                    done
+                      ? { borderColor: cssColor(color), backgroundColor: tint(color, 45) }
+                      : undefined
+                  }
                 >
                   {habit.label}
                 </button>

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useStore } from "../lib/use-store";
 import { GoalPills } from "./GoalPills";
+import { cssColor, goalColorToken, tint } from "../lib/colors";
 import type { Goal } from "../lib/types";
 
 const NUMBERS = ["", "une", "deux", "trois", "quatre", "cinq", "six", "sept"];
@@ -22,6 +23,7 @@ export function GoalCard({ goal }: { goal: Goal }) {
   const today = new Date();
   const count = goalProgress(goal.id, today);
   const reached = goal.target > 0 && count >= goal.target;
+  const colorToken = goalColorToken(goal);
 
   const [editing, setEditing] = useState(false);
   const [popped, setPopped] = useState<number>();
@@ -49,7 +51,11 @@ export function GoalCard({ goal }: { goal: Goal }) {
   }, [count, goal.target]);
 
   return (
-    <section className="rounded-card border border-ligne p-5">
+    // La carte porte discrètement la teinte de son objectif, jusque dans son cadre.
+    <section
+      className="rounded-card border p-5"
+      style={{ borderColor: tint(colorToken, 55), backgroundColor: tint(colorToken, 7) }}
+    >
       <div className="flex flex-wrap items-baseline justify-between gap-3">
         <h3 className="font-display uppercase tracking-[0.03em] text-lg">{goal.name}</h3>
         <button
@@ -65,7 +71,13 @@ export function GoalCard({ goal }: { goal: Goal }) {
 
       <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-col gap-2">
-          <GoalPills count={count} target={goal.target} popped={popped} waving={justReached} />
+          <GoalPills
+            count={count}
+            target={goal.target}
+            color={cssColor(colorToken)}
+            popped={popped}
+            waving={justReached}
+          />
           <p className="text-sm text-encre/70">{progressLabel(count, goal.target)}</p>
           {goal.target > 0 && count > goal.target && (
             <span className="sr-only">

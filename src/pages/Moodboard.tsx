@@ -89,7 +89,7 @@ export function Moodboard() {
   return (
     <div className="px-3 py-5 sm:px-5 sm:py-8">
       <div className="mb-4 flex flex-wrap items-end gap-3 px-2">
-        <h1 className="font-display uppercase tracking-[0.03em] text-2xl sm:text-3xl">Moodboard</h1>
+        <h1 className="font-display uppercase tracking-[0.03em] text-vin text-2xl sm:text-3xl">Moodboard</h1>
 
         <form onSubmit={submitLink} className="ml-auto flex items-center gap-2">
           <input

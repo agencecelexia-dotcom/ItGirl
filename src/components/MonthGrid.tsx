@@ -1,19 +1,20 @@
 import { useStore } from "../lib/use-store";
 import { daysInMonth, formatMonth, startOfMonth, startOfWeek, toDateKey } from "../lib/date";
+import { goalColor } from "../lib/colors";
 
 const GAP = 18;
 const RADIUS = 5;
 const COLS = 7;
 
-/** Plus il y a d'objectifs touchés ce jour-là, plus la pastille est rose. */
+/** Plus il y a d'objectifs touchés ce jour-là, plus la pastille est franche. */
 function opacityFor(goals: number): number {
   if (goals >= 3) return 1;
-  if (goals === 2) return 0.65;
-  return 0.35;
+  if (goals === 2) return 0.75;
+  return 0.5;
 }
 
 export function MonthGrid() {
-  const { goalLogs } = useStore();
+  const { goalLogs, goals } = useStore();
   const today = new Date();
   const first = startOfMonth(today);
   const total = daysInMonth(today);
@@ -43,16 +44,20 @@ export function MonthGrid() {
         {Array.from({ length: total }, (_, i) => {
           const slot = offset + i;
           const date = new Date(first.getFullYear(), first.getMonth(), i + 1);
-          const goals = byDay.get(toDateKey(date))?.size ?? 0;
+          const touched = byDay.get(toDateKey(date));
+          // La pastille prend la teinte du premier objectif touché ce jour-là.
+          const lead = goals.find((goal) => touched?.has(goal.id));
+          const count = touched?.size ?? 0;
+
           return (
             <circle
               key={i}
               cx={(slot % COLS) * GAP + GAP / 2}
               cy={Math.floor(slot / COLS) * GAP + GAP / 2}
               r={RADIUS}
-              fill={goals > 0 ? "var(--color-rose)" : "none"}
-              fillOpacity={goals > 0 ? opacityFor(goals) : 0}
-              stroke={goals > 0 ? "none" : "var(--color-ligne)"}
+              fill={lead ? goalColor(lead) : "none"}
+              fillOpacity={lead ? opacityFor(count) : 0}
+              stroke={lead ? "none" : "var(--color-ligne)"}
               strokeWidth="1"
             />
           );

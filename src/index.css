@@ -1,13 +1,28 @@
 @import "tailwindcss";
 
-@theme {
+/*
+ * `static` force Tailwind à émettre toutes les variables du thème. Sans lui, il
+ * n'écrit que celles qu'il repère dans une classe utilitaire — or la moitié de
+ * la palette n'est utilisée qu'en style calculé, via var(--color-…).
+ */
+@theme static {
   --color-creme: #fbf7ee;
   --color-encre: #3b2a20;
-  --color-beurre: #f4eba8;
+  --color-beurre: #f5e8aa;
   --color-rose: #f2c6de;
   --color-menthe: #56d6bc;
   --color-terre: #d9a87c;
   --color-ligne: #ede3d4;
+
+  /* Les teintes qui donnent son identité à chaque objectif, livre ou humeur. */
+  --color-fougere: #768e78;
+  --color-pistache: #c6c09c;
+  --color-fenouil: #ebdec0;
+  --color-cerisier: #fecdbe;
+  --color-pivoine: #e79897;
+  --color-campanule: #b7cbdb;
+  --color-miel: #fcc88a;
+  --color-vin: #aa1945;
 
   --font-display: "Bodoni Moda", serif;
   --font-script: "Parisienne", cursive;
@@ -48,7 +63,9 @@
    * de l'animer de gauche à droite (220ms) comme demandé.
    */
   .task-text {
-    background-image: linear-gradient(var(--color-rose), var(--color-rose));
+    /* Une tâche liée à un objectif se souligne de la couleur de cet objectif. */
+    --trait: var(--color-rose);
+    background-image: linear-gradient(var(--trait), var(--trait));
     background-repeat: no-repeat;
     background-position: 0 100%;
     background-size: 0% 2px;

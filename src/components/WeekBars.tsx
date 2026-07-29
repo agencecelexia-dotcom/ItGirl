@@ -1,5 +1,6 @@
 import { useStore } from "../lib/use-store";
 import { addDays, toDateKey, weeksOfMonth } from "../lib/date";
+import { goalColor } from "../lib/colors";
 import type { Goal } from "../lib/types";
 
 const ROW = 26;
@@ -61,7 +62,7 @@ export function WeekBars({ goal }: { goal: Goal }) {
                 width={Math.max(BAR, (count / scale) * track)}
                 height={BAR}
                 rx={BAR / 2}
-                fill="var(--color-rose)"
+                fill={goalColor(goal)}
               />
             )}
           </g>
