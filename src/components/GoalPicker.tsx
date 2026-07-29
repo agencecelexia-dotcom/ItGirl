@@ -42,7 +42,7 @@ export function GoalPicker({ value, onChange, placeholder = "objectif" }: GoalPi
             onClick={() => setOpen(false)}
             aria-hidden="true"
           />
-          <span className="absolute bottom-full left-0 z-20 mb-1 flex w-max flex-col gap-0.5 rounded-card border border-ligne bg-creme p-1.5 shadow-soft">
+          <span className="absolute bottom-full left-0 z-20 mb-1 flex w-max flex-col gap-0.5 panel tone-fenouil p-1.5 shadow-soft">
             {goals.map((goal) => (
               <button
                 key={goal.id}

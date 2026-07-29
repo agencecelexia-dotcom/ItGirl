@@ -54,14 +54,14 @@ export function GoalCard({ goal }: { goal: Goal }) {
     // La carte porte discrètement la teinte de son objectif, jusque dans son cadre.
     <section
       className="rounded-card border p-5"
-      style={{ borderColor: tint(colorToken, 55), backgroundColor: tint(colorToken, 7) }}
+      style={{ borderColor: tint(colorToken, 80), backgroundColor: tint(colorToken, 28) }}
     >
       <div className="flex flex-wrap items-baseline justify-between gap-3">
         <h3 className="font-display uppercase text-h2">{goal.name}</h3>
         <button
           type="button"
           onClick={() => setEditing((e) => !e)}
-          className="rounded-pill border border-ligne px-3 py-1.5 text-micro text-encre/70 transition-colors hover:border-terre"
+          className="btn-quiet px-3 py-1.5 text-micro text-encre/70 transition-colors hover:border-terre"
         >
           {editing ? "Terminé" : "Modifier"}
         </button>
@@ -92,14 +92,14 @@ export function GoalCard({ goal }: { goal: Goal }) {
             onClick={() => removeGoalLog(goal.id, today)}
             disabled={manualLogCount(goal.id, today) === 0}
             aria-label={`Retirer une ${goal.unit}`}
-            className="h-11 w-11 rounded-pill border border-ligne text-encre transition-opacity disabled:opacity-40"
+            className="h-11 w-11 btn-quiet text-encre transition-opacity disabled:opacity-40"
           >
             −
           </button>
           <button
             type="button"
             onClick={() => addGoalLog(goal.id, today)}
-            className="min-h-11 rounded-pill border border-terre px-4 text-small text-encre"
+            className="min-h-11 btn px-4 text-small text-encre"
           >
             C'est fait
           </button>
@@ -126,7 +126,7 @@ export function GoalCard({ goal }: { goal: Goal }) {
             <input
               value={goal.name}
               onChange={(e) => updateGoal(goal.id, { name: e.target.value })}
-              className="mt-1 w-full border-b border-ligne bg-transparent py-2 text-body focus:border-terre focus:outline-none"
+              className="field mt-1 w-full px-3 py-2.5 text-body focus:border-terre focus:outline-none"
             />
           </label>
           <label className="block">
@@ -139,13 +139,13 @@ export function GoalCard({ goal }: { goal: Goal }) {
               max={7}
               value={goal.target}
               onChange={(e) => updateGoal(goal.id, { target: Math.max(0, Number(e.target.value)) })}
-              className="mt-1 w-full border-b border-ligne bg-transparent py-2 text-body focus:border-terre focus:outline-none"
+              className="field mt-1 w-full px-3 py-2.5 text-body focus:border-terre focus:outline-none"
             />
           </label>
           <button
             type="button"
             onClick={() => deleteGoal(goal.id)}
-            className="min-h-11 rounded-pill border border-ligne px-4 text-small text-encre/70 transition-colors hover:border-terre"
+            className="min-h-11 btn-quiet px-4 text-small text-encre/70 transition-colors hover:border-terre"
           >
             Supprimer cet objectif
           </button>

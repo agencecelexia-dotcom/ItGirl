@@ -25,7 +25,7 @@ export function MonthView({ anchor, onPickDay }: MonthViewProps) {
   const headers = Array.from({ length: 7 }, (_, i) => addDays(startOfWeek(first), i));
 
   return (
-    <div className="rounded-card border border-ligne p-3 sm:p-5">
+    <div className="panel tone-fenouil p-3 sm:p-5">
       <div className="grid grid-cols-7 gap-1">
         {headers.map((day) => (
           <div key={day.getDay()} className="pb-1 text-center text-micro text-encre/70">

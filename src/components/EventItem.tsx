@@ -35,7 +35,7 @@ export function EventItem({ event, compact }: EventItemProps) {
         setArmed(false);
       }}
       onPointerCancel={cancelPress}
-      className={`group relative rounded-card border border-ligne ${
+      className={`group relative panel tone-campanule ${
         compact ? "px-2 py-1.5" : "px-3 py-2"
       }`}
     >

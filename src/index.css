@@ -154,7 +154,30 @@
 
   body {
     margin: 0;
-    @apply bg-creme text-encre font-sans text-body;
+    @apply text-encre font-sans text-body;
+
+    /*
+     * Un crème plat rendait l'app presque blanche. Trois lavis pastel posés en
+     * fond, fixes pour rester une ambiance et non un motif qui défile.
+     */
+    background-color: var(--color-creme);
+    background-image:
+      radial-gradient(
+        62% 48% at 0% 0%,
+        color-mix(in srgb, var(--color-cerisier) 85%, transparent),
+        transparent 70%
+      ),
+      radial-gradient(
+        58% 44% at 100% 6%,
+        color-mix(in srgb, var(--color-campanule) 78%, transparent),
+        transparent 70%
+      ),
+      radial-gradient(
+        75% 45% at 45% 100%,
+        color-mix(in srgb, var(--color-pistache) 70%, transparent),
+        transparent 70%
+      );
+    background-attachment: fixed;
   }
 
   /* Fraunces s'adoucit par ses axes : SOFT arrondit les angles, WONK courbe les italiques. */
@@ -170,6 +193,61 @@
 }
 
 @layer components {
+  /*
+   * Chaque bloc porte un ton. `--ton` se pose avec une classe `tone-*`, ou se
+   * calcule quand la teinte vient de la donnée — l'objectif ou le livre.
+   */
+  .tone-cerisier {
+    --ton: var(--color-cerisier);
+  }
+  .tone-campanule {
+    --ton: var(--color-campanule);
+  }
+  .tone-pistache {
+    --ton: var(--color-pistache);
+  }
+  .tone-fenouil {
+    --ton: var(--color-fenouil);
+  }
+  .tone-miel {
+    --ton: var(--color-miel);
+  }
+  .tone-pivoine {
+    --ton: var(--color-pivoine);
+  }
+  .tone-fougere {
+    --ton: var(--color-fougere);
+  }
+
+  .panel {
+    border-radius: var(--radius-card);
+    border: 1px solid color-mix(in srgb, var(--ton, var(--color-fenouil)) 72%, var(--color-ligne));
+    background-color: color-mix(in srgb, var(--ton, var(--color-fenouil)) 48%, var(--color-creme));
+  }
+
+  /* Le bouton qui engage l'action : plus soutenu que ceux qui l'entourent. */
+  .btn {
+    border-radius: var(--radius-pill);
+    border: 1px solid color-mix(in srgb, var(--bouton, var(--color-miel)) 90%, transparent);
+    background-color: color-mix(in srgb, var(--bouton, var(--color-miel)) 62%, var(--color-creme));
+  }
+
+  .btn-quiet {
+    border-radius: var(--radius-pill);
+    border: 1px solid color-mix(in srgb, var(--color-campanule) 70%, var(--color-ligne));
+    background-color: color-mix(in srgb, var(--color-campanule) 42%, var(--color-creme));
+  }
+
+  .field {
+    border-radius: 14px;
+    border: 1px solid color-mix(in srgb, var(--color-creme) 40%, #fff);
+    background-color: color-mix(in srgb, var(--color-creme) 55%, #fff);
+  }
+  .field:focus,
+  .field:focus-within {
+    border-color: var(--color-terre);
+  }
+
   /*
    * Cocher souligne le texte en rose, jamais ne le barre : c'est une célébration.
    * Le trait est peint en dégradé plutôt qu'en text-decoration, seule façon

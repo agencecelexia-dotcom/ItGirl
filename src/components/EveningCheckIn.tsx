@@ -17,7 +17,7 @@ export function EveningCheckIn() {
   const entry = entryFor(date);
 
   return (
-    <section className="rounded-card border border-ligne p-5">
+    <section className="panel tone-pistache p-5">
       <h2 className="font-display uppercase text-h2">Le point du soir</h2>
       <p className="mt-1 text-small text-encre/70">Si tu en as envie.</p>
 
@@ -57,7 +57,7 @@ export function EveningCheckIn() {
           value={entry?.word ?? ""}
           onChange={(e) => updateEntry(date, { word: e.target.value })}
           placeholder="un mot qui résume la journée"
-          className="mt-1 w-full border-b border-ligne bg-transparent py-2 font-script text-script text-rose placeholder:font-sans placeholder:text-small placeholder:text-encre/50 focus:outline-none focus:border-terre"
+          className="field mt-1 w-full px-3 py-2.5 font-script text-script text-rose placeholder:font-sans placeholder:text-small placeholder:text-encre/50 focus:outline-none focus:border-terre"
         />
       </div>
 
@@ -70,7 +70,7 @@ export function EveningCheckIn() {
           value={entry?.text ?? ""}
           onChange={(e) => updateEntry(date, { text: e.target.value })}
           rows={3}
-          className="mt-1 w-full resize-none rounded-card border border-ligne bg-transparent p-3 text-body leading-relaxed focus:outline-none focus:border-terre"
+          className="mt-1 field w-full resize-none p-3 text-body leading-relaxed focus:outline-none focus:border-terre"
         />
       </div>
     </section>

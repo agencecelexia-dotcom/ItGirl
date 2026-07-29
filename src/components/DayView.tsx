@@ -8,7 +8,7 @@ export function DayView({ anchor }: { anchor: Date }) {
   const events = eventsFor(toDateKey(anchor));
 
   return (
-    <section className="rounded-card border border-ligne p-5">
+    <section className="panel tone-fenouil p-5">
       {events.length > 0 ? (
         <ul className="space-y-2">
           {events.map((event) => (

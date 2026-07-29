@@ -34,7 +34,7 @@ export function Objectifs() {
       </div>
 
       {open ? (
-        <form onSubmit={submit} className="mt-4 space-y-3 rounded-card border border-ligne p-5">
+        <form onSubmit={submit} className="panel tone-cerisier mt-4 space-y-3 p-5">
           <label className="block">
             <span className="text-micro text-encre/70">Nom</span>
             <input
@@ -42,7 +42,7 @@ export function Objectifs() {
               onChange={(e) => setName(e.target.value)}
               placeholder="Cours de danse"
               autoFocus
-              className="mt-1 w-full border-b border-ligne bg-transparent py-2 text-body placeholder:text-encre/50 focus:border-terre focus:outline-none"
+              className="field mt-1 w-full px-3 py-2.5 text-body placeholder:text-encre/50 focus:border-terre focus:outline-none"
             />
           </label>
           <label className="block">
@@ -51,7 +51,7 @@ export function Objectifs() {
               value={unit}
               onChange={(e) => setUnit(e.target.value)}
               placeholder="séance"
-              className="mt-1 w-full border-b border-ligne bg-transparent py-2 text-body placeholder:text-encre/50 focus:border-terre focus:outline-none"
+              className="field mt-1 w-full px-3 py-2.5 text-body placeholder:text-encre/50 focus:border-terre focus:outline-none"
             />
           </label>
           <label className="block">
@@ -64,21 +64,21 @@ export function Objectifs() {
               max={7}
               value={target}
               onChange={(e) => setTarget(Math.max(0, Number(e.target.value)))}
-              className="mt-1 w-full border-b border-ligne bg-transparent py-2 text-body focus:border-terre focus:outline-none"
+              className="field mt-1 w-full px-3 py-2.5 text-body focus:border-terre focus:outline-none"
             />
           </label>
           <div className="flex items-center gap-2">
             <button
               type="submit"
               disabled={!name.trim()}
-              className="min-h-11 rounded-pill border border-terre px-4 text-small text-encre transition-opacity disabled:opacity-40"
+              className="min-h-11 btn px-4 text-small text-encre transition-opacity disabled:opacity-40"
             >
               Créer
             </button>
             <button
               type="button"
               onClick={() => setOpen(false)}
-              className="min-h-11 rounded-pill border border-ligne px-4 text-small text-encre/70"
+              className="min-h-11 btn-quiet px-4 text-small text-encre/70"
             >
               Annuler
             </button>
@@ -88,7 +88,7 @@ export function Objectifs() {
         <button
           type="button"
           onClick={() => setOpen(true)}
-          className="mt-4 min-h-11 w-full rounded-card border border-ligne px-4 text-small text-encre/70 transition-colors hover:border-terre"
+          className="btn-quiet mt-4 min-h-11 w-full px-4 text-small text-encre/70 transition-colors hover:border-terre"
         >
           Ajouter un objectif
         </button>

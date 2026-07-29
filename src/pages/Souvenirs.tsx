@@ -102,7 +102,7 @@ export function Souvenirs() {
         <button
           type="button"
           onClick={() => fileInput.current?.click()}
-          className="min-h-11 rounded-pill border border-terre px-4 text-small text-encre"
+          className="min-h-11 btn px-4 text-small text-encre"
         >
           Ajouter une photo
         </button>

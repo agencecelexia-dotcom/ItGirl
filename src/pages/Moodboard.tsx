@@ -102,7 +102,7 @@ export function Moodboard() {
           <button
             type="button"
             onClick={() => fileInput.current?.click()}
-            className="min-h-11 shrink-0 rounded-pill border border-terre px-4 text-small text-encre"
+            className="min-h-11 shrink-0 btn px-4 text-small text-encre"
           >
             Choisir une photo
           </button>

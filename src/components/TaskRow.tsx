@@ -91,7 +91,7 @@ export function TaskRow({ task }: { task: Task }) {
               <button
                 type="button"
                 onClick={() => fileInput.current?.click()}
-                className="rounded-pill border border-ligne px-2.5 py-1 text-micro text-encre/70 transition-colors hover:border-terre"
+                className="btn-quiet px-2.5 py-1 text-micro text-encre/70 transition-colors hover:border-terre"
               >
                 + photo
               </button>

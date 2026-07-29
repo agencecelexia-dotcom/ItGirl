@@ -21,7 +21,7 @@ export function TodoSection() {
   };
 
   return (
-    <section className="rounded-card border border-ligne p-5">
+    <section className="panel tone-cerisier p-5">
       <div className="flex flex-wrap items-baseline justify-between gap-3">
         <h2 className="font-display uppercase text-h2">
           {tomorrow ? "Demain" : "Aujourd'hui"}
@@ -29,7 +29,7 @@ export function TodoSection() {
         <button
           type="button"
           onClick={() => setTomorrow((t) => !t)}
-          className="rounded-pill border border-ligne px-3 py-1.5 text-micro text-encre/70 transition-colors hover:border-terre"
+          className="btn-quiet px-3 py-1.5 text-micro text-encre/70 transition-colors hover:border-terre"
         >
           {tomorrow ? "Revenir à aujourd'hui" : "Préparer demain"}
         </button>
@@ -61,7 +61,7 @@ export function TodoSection() {
           <button
             type="submit"
             disabled={!text.trim()}
-            className="rounded-pill border border-terre px-4 py-2 text-micro text-encre transition-opacity disabled:opacity-40"
+            className="btn px-4 py-2 text-micro text-encre transition-opacity disabled:opacity-40"
           >
             Ajouter
           </button>

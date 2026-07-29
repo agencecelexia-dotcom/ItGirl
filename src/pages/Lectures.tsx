@@ -26,7 +26,7 @@ export function Lectures() {
   };
 
   const field =
-    "mt-1 w-full border-b border-ligne bg-transparent py-2 text-body placeholder:text-encre/50 focus:border-terre focus:outline-none";
+    "field mt-1 w-full px-3 py-2.5 text-body placeholder:text-encre/50 focus:border-terre focus:outline-none";
 
   const opened = books.find((book) => book.id === openedId);
   if (opened) {
@@ -68,7 +68,7 @@ export function Lectures() {
       </div>
 
       {open ? (
-        <form onSubmit={submit} className="mt-8 space-y-3 rounded-card border border-ligne p-5">
+        <form onSubmit={submit} className="panel tone-cerisier mt-8 space-y-3 p-5">
           <label className="block">
             <span className="text-micro text-encre/70">Titre</span>
             <input
@@ -123,14 +123,14 @@ export function Lectures() {
             <button
               type="submit"
               disabled={!title.trim()}
-              className="min-h-11 rounded-pill border border-terre px-4 text-small text-encre transition-opacity disabled:opacity-40"
+              className="min-h-11 btn px-4 text-small text-encre transition-opacity disabled:opacity-40"
             >
               Ajouter
             </button>
             <button
               type="button"
               onClick={() => setOpen(false)}
-              className="min-h-11 rounded-pill border border-ligne px-4 text-small text-encre/70"
+              className="min-h-11 btn-quiet px-4 text-small text-encre/70"
             >
               Annuler
             </button>
@@ -140,7 +140,7 @@ export function Lectures() {
         <button
           type="button"
           onClick={() => setOpen(true)}
-          className="mt-8 min-h-11 w-full rounded-card border border-ligne px-4 text-small text-encre/70 transition-colors hover:border-terre"
+          className="btn-quiet mt-8 min-h-11 w-full px-4 text-small text-encre/70 transition-colors hover:border-terre"
         >
           Ajouter un livre
         </button>

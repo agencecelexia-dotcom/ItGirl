@@ -19,10 +19,10 @@ export function AddEventForm({ date, onDateChange }: AddEventFormProps) {
   };
 
   const field =
-    "mt-1 w-full border-b border-ligne bg-transparent py-2 text-body placeholder:text-encre/50 focus:border-terre focus:outline-none";
+    "field mt-1 w-full px-3 py-2.5 text-body placeholder:text-encre/50 focus:border-terre focus:outline-none";
 
   return (
-    <form onSubmit={submit} className="rounded-card border border-ligne p-5">
+    <form onSubmit={submit} className="panel tone-fenouil p-5">
       <h2 className="font-display uppercase text-h2">Ajouter</h2>
 
       <div className="mt-3 flex flex-wrap gap-4">
@@ -59,7 +59,7 @@ export function AddEventForm({ date, onDateChange }: AddEventFormProps) {
       <button
         type="submit"
         disabled={!title.trim()}
-        className="mt-4 min-h-11 rounded-pill border border-terre px-4 text-small text-encre transition-opacity disabled:opacity-40"
+        className="mt-4 min-h-11 btn px-4 text-small text-encre transition-opacity disabled:opacity-40"
       >
         Ajouter
       </button>

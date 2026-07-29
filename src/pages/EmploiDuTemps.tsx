@@ -83,7 +83,7 @@ export function EmploiDuTemps() {
           type="button"
           onClick={() => shift(-1)}
           aria-label="Précédent"
-          className="h-11 w-11 rounded-pill border border-ligne text-encre"
+          className="h-11 w-11 btn-quiet text-encre"
         >
           ‹
         </button>
@@ -94,7 +94,7 @@ export function EmploiDuTemps() {
           type="button"
           onClick={() => shift(1)}
           aria-label="Suivant"
-          className="h-11 w-11 rounded-pill border border-ligne text-encre"
+          className="h-11 w-11 btn-quiet text-encre"
         >
           ›
         </button>

@@ -46,7 +46,7 @@ export function Navigation({ active, onChange }: NavigationProps) {
         Au téléphone, six libellés côte à côte tombaient à une taille illisible.
         Une barre haute nomme l'écran, et le menu s'ouvre en grand.
       */}
-      <header className="fixed inset-x-0 top-0 z-40 flex h-14 items-center justify-between border-b border-ligne bg-creme px-4 sm:hidden">
+      <header className="fixed inset-x-0 top-0 z-40 flex h-14 items-center justify-between border-b border-cerisier/50 bg-cerisier/30 px-4 backdrop-blur-sm sm:hidden">
         <p className="font-display uppercase text-label text-vin">{current?.label}</p>
         <button
           type="button"
@@ -109,8 +109,8 @@ export function Navigation({ active, onChange }: NavigationProps) {
 
       {/* Tablette portrait : barre du bas. Tablette paysage : rail à gauche. */}
       <nav
-        className="fixed bottom-0 inset-x-0 z-40 hidden grid-cols-6 items-center border-t border-ligne bg-creme px-1 py-2 sm:grid
-          lg:static lg:inset-auto lg:flex lg:h-screen lg:w-32 lg:flex-col lg:justify-start lg:gap-5 lg:border-t-0 lg:border-r lg:px-2 lg:py-8"
+        className="fixed bottom-0 inset-x-0 z-40 hidden grid-cols-6 items-center border-t border-cerisier/50 bg-cerisier/30 px-1 py-2 backdrop-blur-sm sm:grid
+          lg:static lg:inset-auto lg:flex lg:h-screen lg:w-32 lg:flex-col lg:justify-start lg:gap-5 lg:border-t-0 lg:border-r lg:border-cerisier/50 lg:px-2 lg:py-8"
         aria-label="Navigation principale"
       >
         {SECTIONS.map((section) => (

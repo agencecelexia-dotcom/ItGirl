@@ -17,7 +17,7 @@ export function YesterdayReminder() {
   if (leftovers.length === 0) return null;
 
   return (
-    <section className="rounded-card border border-ligne p-5">
+    <section className="panel tone-miel p-5">
       <p className="text-small text-encre/70">{sentence(leftovers.length)}</p>
       <ul className="mt-3 space-y-2">
         {leftovers.map((task) => (
@@ -26,7 +26,7 @@ export function YesterdayReminder() {
             <button
               type="button"
               onClick={() => repeatTaskToday(task.id)}
-              className="rounded-pill border border-ligne px-3 py-1.5 text-micro text-encre/70 transition-colors hover:border-terre"
+              className="btn-quiet px-3 py-1.5 text-micro text-encre/70 transition-colors hover:border-terre"
             >
               Reprendre aujourd'hui
             </button>

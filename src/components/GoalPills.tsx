@@ -40,7 +40,7 @@ export function GoalPills({ count, target, color, popped, waving }: GoalPillsPro
           {Array.from({ length: bonus }, (_, i) => (
             <span
               key={i}
-              className="goal-pill h-2 w-2 rounded-pill border border-terre bg-miel"
+              className="goal-pill h-2 w-2 btn bg-miel"
               data-filled="true"
               data-pop={popped === target + i}
             />

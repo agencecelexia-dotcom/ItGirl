@@ -24,9 +24,8 @@ export function WeekView({ anchor, onPickDay }: WeekViewProps) {
         return (
           <section
             key={key}
-            className={`min-w-0 rounded-card border p-2 sm:p-3 ${
-              isToday ? "border-terre" : "border-ligne"
-            }`}
+            // Le jour en cours se distingue par sa teinte, pas par un cadre plus sombre.
+            className={`min-w-0 panel p-2 sm:p-3 ${isToday ? "tone-cerisier" : "tone-fenouil"}`}
           >
             <button
               type="button"
