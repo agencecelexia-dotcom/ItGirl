@@ -81,6 +81,17 @@ export interface HabitLog {
   date: string;
 }
 
+export interface Photo {
+  id: string;
+  url: string;
+  thumb_url?: string;
+  /** Le moodboard inspire, les souvenirs racontent : les deux ne se mélangent jamais. */
+  source: "moodboard" | "souvenir";
+  caption?: string;
+  date?: string;
+  task_id?: string;
+}
+
 export interface DayEntry {
   id: string;
   date: string;

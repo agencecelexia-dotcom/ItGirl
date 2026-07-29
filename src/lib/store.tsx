@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
-import type { Book, DayEntry, Goal } from "./types";
+import type { Book, DayEntry, Goal, Photo } from "./types";
 import { StoreContext, type AppState, type Store } from "./use-store";
 import { toDateKey, weekRange } from "./date";
 
@@ -57,6 +57,7 @@ function seed(): AppState {
     events: [],
     books: [],
     sessions: [],
+    photos: [],
   };
 }
 
@@ -72,12 +73,15 @@ function load(): AppState {
 
 export function StoreProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<AppState>(load);
+  const [storageFull, setStorageFull] = useState(false);
 
   useEffect(() => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      setStorageFull(false);
     } catch {
-      // Quota plein ou stockage indisponible : on garde l'état en mémoire.
+      // L'état reste en mémoire, mais il faut le dire : rien ne doit se perdre en silence.
+      setStorageFull(true);
     }
   }, [state]);
 
@@ -382,6 +386,58 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
+  const addPhoto = useCallback(
+    (url: string, source: Photo["source"], caption?: string, date?: string) => {
+      if (!url.trim()) return;
+      setState((s) => ({
+        ...s,
+        photos: [
+          { id: uid(), url: url.trim(), source, caption, date },
+          ...s.photos,
+        ],
+      }));
+    },
+    [],
+  );
+
+  const updatePhoto = useCallback((id: string, patch: Partial<Omit<Photo, "id">>) => {
+    setState((s) => ({
+      ...s,
+      photos: s.photos.map((p) => (p.id === id ? { ...p, ...patch } : p)),
+    }));
+  }, []);
+
+  const deletePhoto = useCallback((id: string) => {
+    setState((s) => ({
+      ...s,
+      photos: s.photos.filter((p) => p.id !== id),
+      tasks: s.tasks.map((t) => (t.photo_id === id ? { ...t, photo_id: undefined } : t)),
+    }));
+  }, []);
+
+  const attachPhotoToTask = useCallback((taskId: string, url: string) => {
+    setState((s) => {
+      const task = s.tasks.find((t) => t.id === taskId);
+      if (!task) return s;
+      const photoId = uid();
+      return {
+        ...s,
+        photos: [
+          {
+            id: photoId,
+            url,
+            source: "souvenir",
+            caption: task.text,
+            date: task.date,
+            task_id: task.id,
+          },
+          ...s.photos,
+        ],
+        tasks: s.tasks.map((t) => (t.id === taskId ? { ...t, photo_id: photoId } : t)),
+      };
+    });
+  }, []);
+
   const value = useMemo<Store>(
     () => ({
       ...state,
@@ -434,6 +490,13 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         state.sessions
           .filter((x) => x.book_id === bookId)
           .sort((a, b) => b.date.localeCompare(a.date) || b.position - a.position),
+      addPhoto,
+      updatePhoto,
+      deletePhoto,
+      attachPhotoToTask,
+      photosFrom: (source) => state.photos.filter((p) => p.source === source),
+      photoById: (id) => (id ? state.photos.find((p) => p.id === id) : undefined),
+      storageFull,
     }),
     [
       state,
@@ -458,6 +521,11 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       deleteBook,
       logReading,
       deleteSession,
+      addPhoto,
+      updatePhoto,
+      deletePhoto,
+      attachPhotoToTask,
+      storageFull,
     ],
   );
 

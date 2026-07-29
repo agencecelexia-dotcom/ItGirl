@@ -1,4 +1,6 @@
+import { useRef, useState } from "react";
 import { useStore } from "../lib/use-store";
+import { fileToResizedDataUrl } from "../lib/image";
 import { GoalPicker } from "./GoalPicker";
 import type { Task } from "../lib/types";
 
@@ -10,8 +12,22 @@ function progressLabel(count: number, target: number): string {
 }
 
 export function TaskRow({ task }: { task: Task }) {
-  const { goals, toggleTask, deleteTask, setTaskGoal, goalProgress } = useStore();
+  const { goals, toggleTask, deleteTask, setTaskGoal, goalProgress, attachPhotoToTask, photoById } =
+    useStore();
   const goal = goals.find((g) => g.id === task.goal_id);
+  const photo = photoById(task.photo_id);
+  const fileInput = useRef<HTMLInputElement>(null);
+  const [error, setError] = useState<string>();
+
+  const pickPhoto = async (file?: File) => {
+    if (!file) return;
+    setError(undefined);
+    try {
+      attachPhotoToTask(task.id, await fileToResizedDataUrl(file, 1000, 0.72));
+    } catch {
+      setError("Cette image n'a pas pu être lue. Essaie une autre.");
+    }
+  };
 
   return (
     <li className="flex items-start gap-1">
@@ -50,13 +66,45 @@ export function TaskRow({ task }: { task: Task }) {
         </p>
 
         <div className="mt-1.5 flex flex-wrap items-center gap-2">
+          {photo && (
+            <img
+              src={photo.url}
+              alt=""
+              className="h-10 w-10 shrink-0 rounded-[10px] border border-terre object-cover"
+            />
+          )}
           <GoalPicker value={task.goal_id} onChange={(id) => setTaskGoal(task.id, id)} />
+
+          {/* Une photo sur une tâche cochée part directement dans les souvenirs. */}
+          {task.done && !photo && (
+            <>
+              <button
+                type="button"
+                onClick={() => fileInput.current?.click()}
+                className="rounded-pill border border-ligne px-2.5 py-1 text-xs text-encre/70 transition-colors hover:border-terre"
+              >
+                + photo
+              </button>
+              <input
+                ref={fileInput}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={(e) => {
+                  void pickPhoto(e.target.files?.[0]);
+                  e.target.value = "";
+                }}
+              />
+            </>
+          )}
+
           {task.done && goal && (
             <span className="text-xs text-encre/70">
               {progressLabel(goalProgress(goal.id, new Date()), goal.target)}
             </span>
           )}
         </div>
+        {error && <p className="mt-1 text-xs text-encre/70">{error}</p>}
       </div>
 
       <button

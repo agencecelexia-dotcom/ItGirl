@@ -7,6 +7,7 @@ import type {
   GoalLog,
   Habit,
   HabitLog,
+  Photo,
   ReadingSession,
   Task,
 } from "./types";
@@ -21,6 +22,7 @@ export interface AppState {
   events: Event[];
   books: Book[];
   sessions: ReadingSession[];
+  photos: Photo[];
 }
 
 export interface Store extends AppState {
@@ -57,6 +59,15 @@ export interface Store extends AppState {
   /** De la plus récente à la plus ancienne. */
   sessionsFor: (bookId: string) => ReadingSession[];
   deleteSession: (id: string) => void;
+  addPhoto: (url: string, source: Photo["source"], caption?: string, date?: string) => void;
+  updatePhoto: (id: string, patch: Partial<Omit<Photo, "id">>) => void;
+  deletePhoto: (id: string) => void;
+  photosFrom: (source: Photo["source"]) => Photo[];
+  photoById: (id?: string) => Photo | undefined;
+  /** Une photo sur une tâche cochée devient un souvenir daté, légendé par la tâche. */
+  attachPhotoToTask: (taskId: string, url: string) => void;
+  /** Vrai quand le stockage local est saturé : plus rien n'est enregistré. */
+  storageFull: boolean;
 }
 
 export const StoreContext = createContext<Store | null>(null);
