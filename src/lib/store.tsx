@@ -440,6 +440,20 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
+  const setDayCover = useCallback((date: string, url: string) => {
+    setState((s) => {
+      const photoId = uid();
+      const existing = s.dayEntries.find((e) => e.date === date);
+      return {
+        ...s,
+        photos: [{ id: photoId, url, source: "souvenir", date }, ...s.photos],
+        dayEntries: existing
+          ? s.dayEntries.map((e) => (e.date === date ? { ...e, cover_photo_id: photoId } : e))
+          : [...s.dayEntries, { id: uid(), date, cover_photo_id: photoId }],
+      };
+    });
+  }, []);
+
   const value = useMemo<Store>(
     () => ({
       ...state,
@@ -496,6 +510,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       updatePhoto,
       deletePhoto,
       attachPhotoToTask,
+      setDayCover,
       photosFrom: (source) => state.photos.filter((p) => p.source === source),
       photoById: (id) => (id ? state.photos.find((p) => p.id === id) : undefined),
       storageFull,
@@ -527,6 +542,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       updatePhoto,
       deletePhoto,
       attachPhotoToTask,
+      setDayCover,
       storageFull,
     ],
   );

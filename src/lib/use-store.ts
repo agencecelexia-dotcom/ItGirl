@@ -66,6 +66,8 @@ export interface Store extends AppState {
   photoById: (id?: string) => Photo | undefined;
   /** Une photo sur une tâche cochée devient un souvenir daté, légendé par la tâche. */
   attachPhotoToTask: (taskId: string, url: string) => void;
+  /** La photo du jour : elle habille la carte-titre et rejoint les souvenirs. */
+  setDayCover: (date: string, url: string) => void;
   /** Vrai quand le stockage local est saturé : plus rien n'est enregistré. */
   storageFull: boolean;
 }

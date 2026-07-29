@@ -102,25 +102,25 @@
    * Chaque échelon se distingue du suivant : rien ne doit avoir la même taille
    * sans avoir le même rôle.
    */
-  --text-micro: clamp(0.72rem, 0.68rem + 0.16vw, 0.78rem);
+  --text-micro: clamp(0.81rem, 0.78rem + 0.14vw, 0.88rem);
   --text-micro--line-height: 1.45;
 
-  --text-small: clamp(0.81rem, 0.77rem + 0.17vw, 0.88rem);
+  --text-small: clamp(0.91rem, 0.87rem + 0.16vw, 0.97rem);
   --text-small--line-height: 1.5;
 
   /* Les intertitres : petits, mais en capitales espacées, donc lus comme des repères. */
-  --text-label: clamp(0.81rem, 0.74rem + 0.28vw, 0.94rem);
+  --text-label: clamp(0.88rem, 0.8rem + 0.33vw, 1.03rem);
   --text-label--line-height: 1.3;
   --text-label--letter-spacing: 0.1em;
 
-  --text-body: clamp(0.94rem, 0.9rem + 0.19vw, 1.03rem);
+  --text-body: clamp(1.03rem, 0.98rem + 0.23vw, 1.16rem);
   --text-body--line-height: 1.6;
 
-  --text-h2: clamp(1.19rem, 0.99rem + 0.83vw, 1.5rem);
+  --text-h2: clamp(1.31rem, 1.1rem + 0.87vw, 1.66rem);
   --text-h2--line-height: 1.2;
   --text-h2--letter-spacing: 0.04em;
 
-  --text-h1: clamp(1.63rem, 1.13rem + 2.05vw, 2.38rem);
+  --text-h1: clamp(1.75rem, 1.24rem + 2.1vw, 2.5rem);
   --text-h1--line-height: 1.08;
   --text-h1--letter-spacing: 0.03em;
 

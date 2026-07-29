@@ -26,7 +26,8 @@ function App() {
     <StoreProvider>
       <div className="min-h-screen lg:flex">
         <Navigation active={active} onChange={setActive} />
-        <main className="pb-20 lg:flex-1 lg:pb-0">
+        {/* Barre haute au téléphone, barre du bas en tablette portrait, rail en paysage. */}
+        <main className="pt-14 sm:pt-0 sm:pb-20 lg:flex-1 lg:pb-0">
           <Page />
         </main>
         <GrainOverlay />
